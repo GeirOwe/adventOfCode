@@ -5,7 +5,8 @@
 firstExpense = 0
 secondExpense = 0
 thirdExpense = 0
-expense_total = 2020 #the sum that the two expenses sum up to
+
+expense_total = 2020 #the sum that the expenses are to sum up to
 expenses_found = False
 
 #the puzzle input, the expense report - test
@@ -24,13 +25,18 @@ expense_report = [1688, 1463, 1461, 1842, 1441, 1838, 1583, 1891, 1876, 1551, 15
 1963, 1928, 1920, 1493, 1968, 1564, 1572]
 
 #some variables to be used while looping
+#firstExpenseitem contains the position in the expense report for my first number
+#secondExpenseitem starts one position after the firstExpenseItem and loops to the end
+#thirdExpenseitem starts one position after the secondExpenseItem and loops to the end
 noOfexpenses = len(expense_report)
-expenseItem = 0 
+firstExpenseItem = 0 
+secondExpenseItem = 0
+thirdExpenseItem = 0
 
 #loop over all remaining items in the expense reports
 for exp1 in expense_report:
     if expenses_found == False:
-        secondExpenseItem = expenseItem
+        secondExpenseItem = firstExpenseItem
     
     #loop thru all the remaining expenses, that is listed after this expense
     while secondExpenseItem < (noOfexpenses-1):
@@ -55,7 +61,7 @@ for exp1 in expense_report:
                     thirdExpenseItem = thirdExpenseItem + 1
     
     #move to the next expense item in the list
-    expenseItem = expenseItem + 1
+    firstExpenseItem = firstExpenseItem + 1
         
 #print results
 print('----------------------------------------------------')
