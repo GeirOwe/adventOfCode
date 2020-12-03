@@ -1,5 +1,5 @@
 # advent of code by geir owe
-# day1
+# day1 
 
 #variables needed
 firstExpense = 0
