@@ -4,10 +4,14 @@
 #variables needed
 firstExpense = 0
 secondExpense = 0
-expense_total = 2020 #the sum that the two expenses sum up to
+thirdExpense = 0
+
+expense_total = 2020 #the sum that the expenses are to sum up to
 expenses_found = False
 
-#the puzzle input, the expense report
+#the puzzle input, the expense report - test
+#expense_report = [1721, 979, 366, 299, 675, 1456]
+
 expense_report = [1688, 1463, 1461, 1842, 1441, 1838, 1583, 1891, 1876, 1551, 1506, 2005, 1989, 1417, 1784, 
 1975, 1428, 1485, 1597, 1871, 105, 788, 1971, 1892, 1854, 1466, 1584, 1565, 1400, 1640, 1780, 1774, 360, 1421, 
 1368, 1771, 1666, 1707, 1627, 1449, 1677, 1504, 1721, 1994, 1959, 1862, 1768, 1986, 1904, 1382, 1969, 1852, 1917, 
@@ -21,28 +25,43 @@ expense_report = [1688, 1463, 1461, 1842, 1441, 1838, 1583, 1891, 1876, 1551, 15
 1963, 1928, 1920, 1493, 1968, 1564, 1572]
 
 #some variables to be used while looping
+#firstExpenseitem contains the position in the expense report for my first number
+#secondExpenseitem starts one position after the firstExpenseItem and loops to the end
+#thirdExpenseitem starts one position after the secondExpenseItem and loops to the end
 noOfexpenses = len(expense_report)
-expenseItem = 0 
+firstExpenseItem = 0 
+secondExpenseItem = 0
+thirdExpenseItem = 0
 
 #loop over all remaining items in the expense reports
 for exp1 in expense_report:
-    nextExpense = expenseItem
+    if expenses_found == False:
+        secondExpenseItem = firstExpenseItem
     
     #loop thru all the remaining expenses, that is listed after this expense
-    while nextExpense < (noOfexpenses-1):
-        nextExpense = nextExpense + 1
+    while secondExpenseItem < (noOfexpenses-1):
+        #go to the next item in the list looking for second item
+        secondExpenseItem = secondExpenseItem + 1
+        thirdExpenseItem = secondExpenseItem + 1
+        exp2 = expense_report[secondExpenseItem]
         
-        #I'm just expecting one match, if the match is fund we stop
-        if expenses_found == False:
-            exp2 = expense_report[nextExpense]
-            if exp1 + exp2 == expense_total:
-                expenses_found = True
-                firstExpense = exp1 #store the first expense
-                secondExpense = exp2 # store the second expense
-                nextExpense = noOfexpenses #stop looking if the match is found
+        while thirdExpenseItem < (noOfexpenses):
+            #I'm just expecting one match, if the match is fund we stop
+            if expenses_found == False:
+                exp3 = expense_report[thirdExpenseItem]
+                if exp1 + exp2 + exp3 == expense_total:
+                    expenses_found = True
+                    firstExpense = exp1 #store the first expense
+                    secondExpense = exp2 # store the second expense
+                    thirdExpense = exp3 # store the third expense
+                    secondExpenseItem = noOfexpenses #stop looking if the match is found
+                    thirdExpenseItem = noOfexpenses #stop looking if the match is found
+                else:
+                    #go to the next item in the list looking for third item
+                    thirdExpenseItem = thirdExpenseItem + 1
     
     #move to the next expense item in the list
-    expenseItem = expenseItem + 1
+    firstExpenseItem = firstExpenseItem + 1
         
 #print results
 print('----------------------------------------------------')
@@ -50,8 +69,9 @@ print('')
 if expenses_found:
     print('first expense: ', firstExpense)
     print('second expense:', secondExpense)
-    print('expenses summarized: ', firstExpense + secondExpense)
-    print('expenses multiplied:', firstExpense * secondExpense)
+    print('third expense:', thirdExpense)
+    print('expenses summarized: ', firstExpense + secondExpense + thirdExpense)
+    print('expenses multiplied:', firstExpense * secondExpense * thirdExpense)
 else:
     print('check your expenses - some items are missing')
 
