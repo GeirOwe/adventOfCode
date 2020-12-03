@@ -10,7 +10,7 @@ expense_total = 2020 #the sum that the expenses are to sum up to
 expenses_found = False
 
 #the puzzle input, the expense report - test
-expense_report = [1721, 979, 366, 299, 675, 1456]
+#expense_report = [1721, 979, 366, 299, 675, 1456]
 
 expense_report = [1688, 1463, 1461, 1842, 1441, 1838, 1583, 1891, 1876, 1551, 1506, 2005, 1989, 1417, 1784, 
 1975, 1428, 1485, 1597, 1871, 105, 788, 1971, 1892, 1854, 1466, 1584, 1565, 1400, 1640, 1780, 1774, 360, 1421, 
