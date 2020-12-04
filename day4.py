@@ -15,7 +15,7 @@ def process_passports(pass_file):
             listofPassports.append(onePassport)
             onePassport = {}
         else:
-            # Converting string from the input file into dictionary - this is easier to process
+            # Converting string from the input file into dictionary
             Dict = dict((x.strip(), y.strip()) 
                 for x, y in (element.split(':')  
                 for element in onePass.split(' ')))
@@ -45,10 +45,8 @@ pass_file = open('day4_puzzle_input.txt', 'r')
 
 #process the input file - a dictionary is returned
 listofPassports = process_passports(pass_file)
-
-#make list all passports into a dataframe to check content
-df = pd.DataFrame(listofPassports)
-passportsProcessed = len(df) # number of passports processed
+df = pd.DataFrame(listofPassports)      #make list all passports into a dataframe to check content
+passportsProcessed = len(df)            # number of passports processed
 
 #find passports with errors - i.e. missing information
 errPassCount = check_pass_for_err(df)
