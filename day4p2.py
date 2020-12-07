@@ -1,16 +1,20 @@
 # day 4 advent of code 2020
 # by GeirOwe
 # the challenge: https://adventofcode.com/2020/day/4
+# part one of day 4 counts the invalid passports - the part two challenge counts the valid passports
 
 import pandas as pd 
 
 #process the input file and return a dataframe with all passports
 def process_passports(pass_file):
-    #process input - move them into a dictionary to make it possible to process
+    # passport information may span mre than one line in the input file - 
+    # onePassport contains all the information on a passport
     onePassport = {}
+    #process input - move passports a dictionary with one passport pr row
     listofPassports = []
     for onePass in pass_file:
         onePass = onePass.strip()
+        #unless a blank line, the information on this line belongs to same passport as previous line
         if onePass == '':
             listofPassports.append(onePassport)
             onePassport = {}
@@ -43,24 +47,22 @@ def check_data_for_quality(df):
     df = df[(df['eyr'] >= 2020) & (df['eyr'] <= 2030)] 
     
     # split height in two columns
-    # one for height and one for wht measure is used; in or cm
+    # one for height and one for what measure is used; in or cm
     # then check data quality in height - hgt.  
-    # mal:    s.str.extract(r'([ab])(\d)')
-    df['hgtn']=df.hgt.str.extract(r'(\d+)', expand = True)                           # extract numeric height from hgt
-    df['hgtm']=df.hgt.str.extract('([a-zA-Z ]+)', expand = False)                   # extract if this is in or cm
-    df['hgtn'] = df['hgtn'].astype(int)                                             # set new height column as int
+    df['hgtn']=df.hgt.str.extract(r'(\d+)', expand = True)                          # extract numeric height from hgt - '\d+' means all the numbers
+    df['hgtm']=df.hgt.str.extract('([a-zA-Z ]+)', expand = False)                   # extract if this is in or cm - 
+    df['hgtn'] = df['hgtn'].astype(int)                                             # set new height column as int - [a-zA-Z ]+ means all the chars
     df = df[((df['hgtn'] >= 150) & (df['hgtn'] <= 193) & (df['hgtm'] == 'cm')) |    # If cm, the number must be at least 150 and at most 193.
     ( (df['hgtn'] >= 59) & (df['hgtn'] <= 76) & (df['hgtm'] == 'in') )]             # If in, the number must be at least 59 and at most 76.
     
     #hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-    #patternX = '^#\w{6}$'
-    df = df[df['hcl'].str.count(r'(^#\w{6}$)') == 1]
+    df = df[df['hcl'].str.count(r'(^#\w{6}$)') == 1]                                # fields is to start with a '#' then followed six char or int, 
 
     #ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
     df = df[df['ecl'].str.count(r'(^amb$|^blu$|^brn$|^gry$|^grn$|^hzl$|^oth$)') == 1]
 
     #pid (Passport ID) - a nine-digit number, including leading zeroes.
-    df = df[df['pid'].str.count(r'(^[0-9]{9}$)') == 1]
+    df = df[df['pid'].str.count(r'(^[0-9]{9}$)') == 1]           
 
     return df
 #end of check_all_fields function
@@ -69,13 +71,10 @@ def check_data_for_quality(df):
 def check_pass_for_missing_data(df):
     # list all vald passports in a dataframe
     correctPassPorts = df[df['ecl'].notnull() & df['pid'].notnull() & df['eyr'].notnull() & df['hcl'].notnull() & df['byr'].notnull() & df['iyr'].notnull() & df['hgt'].notnull()]
-    #print(correctPassPorts)
-
+  
     #the part two challenge - check that all data are within the rules for the fields
     correctPassPorts = check_data_for_quality(correctPassPorts)
-    #print('after data quality check')
-    #print(correctPassPorts)
-
+  
     #number of valid passports
     validPassports = len(correctPassPorts)
     return validPassports
