@@ -92,6 +92,8 @@ print('the highest seat ID on a boarding pass? ', maxSeatId)
 yourSeatId = 0
 allId.sort()
 
+#run thru the list of SeatId's - check if current seatid - 'left' + 'right' = 0. 
+# If not, the current seat is left of yourSeatId - i.e. the answer to the puzzle
 for x in range(len(allId)):
     if (x >= 1) & (x< (len(allId)-1)):
         if ((allId[x-1] - allId[x]) + (allId[x+1] - allId[x])) != 0:
