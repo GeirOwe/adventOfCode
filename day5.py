@@ -3,6 +3,7 @@
 # link to the challenge: https://adventofcode.com/2020/day/5
 
 import math
+import pandas as pd 
 
 #find the lower half in the range - divide and round down
 def go_lower_half(lRow):
@@ -61,6 +62,8 @@ bpass_file = open('day5_puzzle_input.txt', 'r')
 #the challenge:
 #As a sanity check, look through your list of boarding passes. What is the highest seat ID on a boarding pass?
 maxSeatId = 0
+#add all seat id's to a list
+allId = [] 
 
 #read the passports from the file
 for bPass in bpass_file:
@@ -76,8 +79,29 @@ for bPass in bpass_file:
     seatId = theRow * 8 + theSeat
     if seatId > maxSeatId:
         maxSeatId = seatId
-        print(bPass, ' equals row: ', theRow, ' and seat: ', theSeat, ' and seat ID: ', seatId)  
+    #print(bPass, ' equals row: ', theRow, ' and seat: ', theSeat, ' and seat ID: ', seatId)  
+    allId.append(seatId)
 
 #the challenge:
+print()
+print('Day5 part 2:')
+print('------------')
 print('the highest seat ID on a boarding pass? ', maxSeatId)
-    
+
+#the challenge part two
+yourSeatId = 0
+allId.sort()
+
+for x in range(len(allId)):
+    if (x >= 1) & (x< (len(allId)-1)):
+        if ((allId[x-1] - allId[x]) + (allId[x+1] - allId[x])) != 0:
+            print(allId[x-1], ' ', allId[x], ' ', allId[x+1] )
+            #the answer to part two challenge:
+            if yourSeatId == 0:
+                yourSeatId = allId[x] + 1
+
+#print the the answer to part two challenge:
+print('What is the ID of your seat? ', yourSeatId)
+
+
+ 
