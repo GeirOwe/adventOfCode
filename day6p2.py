@@ -6,26 +6,19 @@ from collections import Counter
 
 #start function
 def process_group_input(cForms):
-    listToElements = []
-    itemsToBeDeleted = []
-
     #split many responses from one person into single elements. something like:
     for x in range(len(cForms)):
-        orgForm = cForms[x]
-        for y in range(len(orgForm)):
-            listToElements.append(orgForm[y])
-        cForms.extend(listToElements)
-        listToElements = []
-        itemsToBeDeleted.append(orgForm) 
-    
-    #delete the original entry after adding all the characters
-    for x in range(len(itemsToBeDeleted)):
-        cForms.remove(itemsToBeDeleted[x])
-    
-    #count number of unique answers
-    newResponse = Counter(cForms).values()
-    groupNoOfYes = len(newResponse)
-    return groupNoOfYes
+        if x == 0:                  #answer from first person
+            theList = cForms[x]
+        else: 
+            nextList = cForms[x]    #answer from next person
+            # we now use the intersection between the two list 
+            # to find common elements among the answers from previous persons and this persons
+            theList = list(set(theList).intersection(set(nextList)))
+ 
+    #he number of questions to which anyone answered "yes"
+    groupsumOfYes = len(theList)
+    return groupsumOfYes
 #end process_group_input function
 
 #read the test puzzle input
@@ -34,9 +27,9 @@ def process_group_input(cForms):
 cform_file = open('day6_puzzle_input.txt', 'r')
 
 #the challenge:
-#  For each group, count the number of questions to which 
-#  anyone answered "yes". What is the sum of those counts?
-noOfYes = 0
+#  For each group, count the number of questions 
+#  to which anyone answered "yes". What is the sum of those counts?
+sumOfYes = 0
 
 #collect all responses from a group
 groupInput = []
@@ -47,16 +40,17 @@ for response in cform_file:
     response = response.strip()
     if response == '':
         #all responses from a group is read. Process the forms
-        groupNoOfYes = process_group_input(groupInput) 
-        noOfYes = noOfYes + groupNoOfYes
+        groupsumOfYes = process_group_input(groupInput) 
+        sumOfYes =  sumOfYes + groupsumOfYes
+        #prepare for next group
         groupInput = []
     else:
         groupInput.append(response)
 else:
     #the last customs form
-    groupNoOfYes = process_group_input(groupInput) 
-    noOfYes = noOfYes + groupNoOfYes
+    groupsumOfYes = process_group_input(groupInput) 
+    sumOfYes =  sumOfYes + groupsumOfYes
     groupInput = []
 
-print('the number of questions to which anyone answered "yes" ', noOfYes)
+print('sum of the count of the number of questions to which anyone answered "yes" ',  sumOfYes)
 print()
