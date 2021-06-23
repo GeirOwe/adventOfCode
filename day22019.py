@@ -42,20 +42,24 @@ def process_codes(codeList):
     return codeList[0]
 #end function
 
-#start function
-def start_the_challenge():
-    print(' ... processing data ...\n')
+def get_the_data():
     #read the test puzzle input 
     #intcodes_f = open('day22019_test_puzzle_input.txt', 'r')
     #read the puzzle input
     intcodes_f = open('day22019_puzzle_input.txt', 'r')
-    
     #the codes are separated by comma - transfer them to a list
     codeList = intcodes_f.read().split(',')
+    return codeList
+
+#start function
+def start_the_challenge():
+    #get the data
+    codeList = get_the_data()
 
     #process the codes and return the answer
     valueAtPosZero = process_codes(codeList) 
-    #print('forventet resultat er ...  6730673') 
+    
+    print('forventet resultat er ...  6730673 ...') 
     print('What value is left at position 0 after the program halts? - ', valueAtPosZero)
 
     return 
