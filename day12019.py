@@ -19,9 +19,9 @@ print()
 #let's start
 if __name__ == '__main__':
     #read the test puzzle input
-    #mass_file = open('day12019_test_puzzle_input.txt', 'r')
+    mass_file = open('day12019_test_puzzle_input.txt', 'r')
     #read the puzzle input
-    mass_file = open('day12019_puzzle_input.txt', 'r')
+    #mass_file = open('day12019_puzzle_input.txt', 'r')
 
     # Fuel required to launch a given module is based on its mass. 
     # Specifically, to find the fuel required for a module, take its 
