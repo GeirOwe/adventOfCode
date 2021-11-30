@@ -10,11 +10,11 @@ def clear_console():
     print()
 
 #start function
-def process_codes(codeList):
+def process_codes(theData):
     #set initial position
-    for code in codeList:
-        nummer = int(code.strip())
-        print(nummer)
+    for dataElement in theData:
+        cleanedDataElement = int(dataElement.strip()) #remove spaces or EOL
+        print(cleanedDataElement)
     
     expectedResult = 6730673
     return expectedResult
@@ -24,19 +24,19 @@ def get_the_data():
     #read the test puzzle input 
     intcodes_f = open('template_test_puzzle_input.txt', 'r')
     #the codes are separated by comma - transfer them to a list
-    codeList = intcodes_f.read().split(',')
-    return codeList
+    theData = intcodes_f.read().split(',')
+    return theData
 
 #start function
 def start_the_challenge():
     #get the data and read the into  list
-    codeList = get_the_data()
+    theData = get_the_data()
 
     #process the codes and return the answer
-    valueAtPosZero = process_codes(codeList) 
+    valueX = process_codes(theData) 
     
     print('forventet resultat er ...  6730673 ...') 
-    print('What value is left at position 0 after the program halts? - ', valueAtPosZero)
+    print('What value is left at position 0 after the program halts? - ', valueX)
 
     return 
 #end function
