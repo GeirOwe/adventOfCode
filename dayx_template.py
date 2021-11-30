@@ -22,7 +22,7 @@ def process_codes(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    intcodes_f = open('template_test_puzzle_input.txt', 'r')
+    intcodes_f = open('dayx_test_puzzle_input.txt', 'r')
     #the codes are separated by comma - transfer them to a list
     theData = intcodes_f.read().split(',')
     return theData
