@@ -18,7 +18,7 @@ def process_the_data(theData):
     # loop thru the list and count the number of times where
     # next sum of three is higher than the current one
     while i < length:
-        # check that we are not beyond the last three letters
+        # check if there are still three more numbers in list; if not we are done
         if i < (length-3):
             # calculate the sum_of_three's
             current_sumOfThree = theData[i] + theData[i+1] + theData[i+2]
@@ -46,17 +46,18 @@ def get_the_data():
 #end get_the_data function
 
 #start function
-def start_the_challenge():
-    #get the data and read the into  list
+def start_the_engine():
+    #get the data and read them into a list
     theData = get_the_data()
     
     #process the data and return the answer
     valueX = process_the_data(theData) 
-    print('number of times a depth measurement increases from the previous measurement? -> ', valueX)
+    
+    print('the number of times the sum of measurements increases -> ', valueX,'\n') 
     return 
 #end function
 
 #let's start
 if __name__ == '__main__':
     clear_console()
-    start_the_challenge()
+    start_the_engine()
