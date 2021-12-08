@@ -1,3 +1,5 @@
+# as found on reddit
+
 get_vertical = lambda lst: [[y[x] for y in lst] for x in range(len(lst[0]))]
 get_value = lambda x, n, m: n if x.count('0') > x.count('1') else m
 calc_bin = lambda lst: int(''.join([str(x) for x in lst]), 2)
