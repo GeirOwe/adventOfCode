@@ -130,6 +130,10 @@ def start_the_engine():
     
     #process the data and return the answer
     valueX = process_the_data(the_map, numOfRows, numOfCols)
+
+    # Next, you need to find the largest basins. The size of a basin is the number 
+    # of locations within the basin, including the low point.
+    # Find the three largest basins and multiply their sizes together.
     
     print('\nthe sum of the risk levels of all low points -> ', valueX,'\n')
     return 
