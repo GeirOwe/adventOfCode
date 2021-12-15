@@ -135,6 +135,22 @@ def start_the_engine():
     # of locations within the basin, including the low point.
     # Find the three largest basins and multiply their sizes together.
     
+    #find adjacent cells:
+    #def adj_finder(matrix, position):
+    #adj = []
+    
+    #for dx in range(-1, 2):
+    #    for dy in range(-1, 2):
+    #        rangeX = range(0, matrix.shape[0])  # X bounds
+    #        rangeY = range(0, matrix.shape[1])  # Y bounds
+    #        
+    #        (newX, newY) = (position[0]+dx, position[1]+dy)  # adjacent cell
+    #        
+    #        if (newX in rangeX) and (newY in rangeY) and (dx, dy) != (0, 0):
+    #            adj.append((newX, newY))
+    #
+    #return adj
+    
     print('\nthe sum of the risk levels of all low points -> ', valueX,'\n')
     return 
 
