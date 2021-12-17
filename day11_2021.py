@@ -10,6 +10,7 @@ def clear_console():
     print()
     return
 
+# increase all fields in the grid by 1
 def increase_all_fields(grid):
     nrows, ncols = grid.shape
     for i in range(nrows):
@@ -17,6 +18,8 @@ def increase_all_fields(grid):
             grid[i][j] += 1
     return grid
 
+# all elements in the grid with 10 are to flash, mark them with -1
+# and add the element to a separate list we use to do the "flash"
 def find_10(grid, list_of_10):
     nrows, ncols = grid.shape
     for i in range(nrows):
@@ -26,6 +29,7 @@ def find_10(grid, list_of_10):
                 grid[i][j]  = -1
     return list_of_10, grid
 
+# find all adjacent cells and increase count by 1 for these
 def increase_adjacent(grid, element):
     adjacent_pos = []
     maxRow, maxCol = grid.shape
@@ -87,11 +91,13 @@ def increase_adjacent(grid, element):
     for element in adjacent_pos:
         row = element[0]
         col = element[1]
+        # we are only to flash once pr step
         if grid[row, col] != -1 and grid[row, col] < 10: 
             grid[row, col] += 1
 
     return grid
 
+# do a new step
 def step_away(grid, valueX):
     list_of_10 = []
     #increase all fields in grid with one
@@ -113,7 +119,9 @@ def step_away(grid, valueX):
     grid[grid < 0] = 0
     return valueX, grid
 
+# process the data with all indicated steps
 def process_the_data(grid):
+    #count number of flashes
     valueX = 0
     #number of steps
     noSteps = 100
