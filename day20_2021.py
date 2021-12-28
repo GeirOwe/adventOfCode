@@ -10,11 +10,11 @@ def clear_console():
     print()
     return
 
-# convert from pixels to binary ["...#...#."] -> ["000100010"]
+# convert from pixels to binary "...#...#." -> "000100010"
 def pix_2_binary(the_9_pixels):
     i = 0
     binaryX = ""
-    pix = the_9_pixels[0]
+    pix = the_9_pixels
     #check all fields in list. "." -> 0 and "#" -> 1
     while i < 9:
         if pix[i] == ".": binaryX += "0"
@@ -22,12 +22,8 @@ def pix_2_binary(the_9_pixels):
         i += 1
     return binaryX
 
-# find all adjacent cells and add content of all cells to a list
+# find all adjacent cells and add content of all cells to a string
 def find_adjacent_pixels(grid, element):
-    the_9_pixels = ["...#...#."]
-    return the_9_pixels
-
-def find_adjacent_pixelsOLD(grid, element):
     #the 9 pixels - around and including the pos - visualised here with a zero:
     #   # . . # .
     #   #[. . .].
@@ -35,12 +31,11 @@ def find_adjacent_pixelsOLD(grid, element):
     #   .[. # .].
     #   . . # # #
     the_9_pixels = ""
-
-    adjacent_pos = []
     maxRow, maxCol = grid.shape
     maxRow -= 1 #starting from zero
     maxCol -= 1 #starting from zero
     elementProcessed = False
+
     # check all 4 corners - use dots for all positions "outside the grid"
     if element == [0,0]: 
         the_9_pixels = the_9_pixels + "...." + grid[0,0] + grid[0, 1] + "." + grid[1, 0] + grid[1, 1]
@@ -52,61 +47,46 @@ def find_adjacent_pixelsOLD(grid, element):
         the_9_pixels = the_9_pixels + grid[maxRow-1, maxCol-1] + grid[maxRow-1, maxCol] + "." + grid[maxRow, maxCol-1] + grid[maxRow,maxCol] + "...."
         elementProcessed = True
     if element == [maxRow,0]: 
-        adjacent_pos.append([maxRow, 1]); adjacent_pos.append([maxRow-1, 1]); adjacent_pos.append([maxRow-1, 0]) #right, vertical, up
-        the_9_pixels = the_9_pixels + "." + 
+        the_9_pixels = the_9_pixels + "." + grid[maxRow-1, 0] + grid[maxRow-1, 1] + "." + grid[maxRow, 0] + grid[maxRow, 1] + "..."
         elementProcessed = True
    
     #check if first column or last column
     if elementProcessed != True:
         if element[1] == 0: #first column
             row = element[0]
-            adjacent_pos.append([row-1, 0]); adjacent_pos.append([row+1, 0]); adjacent_pos.append([row, 1]) #up, down, right
-            adjacent_pos.append([row-1, 1]); adjacent_pos.append([row+1, 1]);    #vertical up, vertical down
+            the_9_pixels = the_9_pixels + "."+grid[row-1, 0]+grid[row-1, 1] + "."+grid[row, 0]+grid[row, 1] + "."+grid[row+1, 0]+grid[row+1, 1]
             elementProcessed = True
         elif element[1] == maxCol: #last column
             row = element[0]
-            adjacent_pos.append([row-1, maxCol]); adjacent_pos.append([row+1, maxCol]); adjacent_pos.append([row, maxCol-1]) #up, down, left
-            adjacent_pos.append([row-1, maxCol-1]); adjacent_pos.append([row+1, maxCol-1])   #vertical up, vertical down
+            the_9_pixels = the_9_pixels + grid[row-1, maxCol-1]+grid[row-1, maxCol]+"."+ grid[row, maxCol-1]+grid[row, maxCol]+"." + grid[row+1, maxCol-1]+grid[row+1, maxCol]+"."
             elementProcessed = True
 
     #check if first row or last row
     if elementProcessed != True:
         if element[0] == 0: #first row
             col = element[1]
-            adjacent_pos.append([0, col-1]); adjacent_pos.append([0, col+1]); adjacent_pos.append([1, col]) #left, right, down
-            adjacent_pos.append([1, col-1]); adjacent_pos.append([1, col+1])     #vertical down left, vertical down right
+            the_9_pixels = the_9_pixels + "..."+grid[0, col-1]+grid[0, col]+grid[0, col+1]+grid[1, col-1]+grid[1, col]+grid[1, col+1]
             elementProcessed = True
         elif element[0] == maxRow: #last row
             col = element[1]
-            adjacent_pos.append([maxRow, col-1]); adjacent_pos.append([maxRow, col+1]); adjacent_pos.append([maxRow-1, col]) #left, right, up
-            adjacent_pos.append([maxRow-1, col-1]); adjacent_pos.append([maxRow-1, col+1]) #vertical up left, vertical up right
+            the_9_pixels = the_9_pixels + grid[maxRow-1, col-1]+grid[maxRow-1, col]+grid[maxRow-1, col+1]+grid[maxRow, col-1]+grid[maxRow, col]+grid[maxRow, col+1] + "..."
             elementProcessed = True
     
     #the position is in the middle if still false
     if elementProcessed != True:
         row = element[0]
         col = element[1]
-        #left, right, up, down
-        adjacent_pos.append([row, col-1]); adjacent_pos.append([row, col+1]); adjacent_pos.append([row-1, col]); adjacent_pos.append([row+1, col])
-        #vert up left, vert up right
-        adjacent_pos.append([row-1, col-1]); adjacent_pos.append([row-1, col+1])
-        #vert down left, vert down right
-        adjacent_pos.append([row+1, col-1]); adjacent_pos.append([row+1, col+1])
-    
-    #process all positions in the adjacent_pos list
-    for element in adjacent_pos:
-        row = element[0]
-        col = element[1]
-        # we are only to flash once pr step
-        if grid[row, col] != -1 and grid[row, col] < 10: 
-            grid[row, col] += 1
+        the_9_pixels = the_9_pixels + grid[row-1, col-1]+grid[row-1, col]+grid[row-1, col+1]+grid[row, col-1]+grid[row, col]+grid[row, col+1] + grid[row+1, col-1]+grid[row+1, col]+grid[row+1, col+1]
 
     return the_9_pixels
 
 # do a new step
 def step_away(input_image, image_algo, valueX):
-    output_image = input_image
     maxRow, maxCol = input_image.shape
+    #start with an empty output image
+    data_list = ["."] * (maxRow * maxCol)
+    output_image = np.array(data_list, dtype="str").reshape(maxRow, maxCol)
+
     row = 0
     while row < maxRow: 
     #REPEAT for all pixels i input picture
@@ -131,14 +111,12 @@ def step_away(input_image, image_algo, valueX):
         #next row
         row += 1
 
-    resulting_image = output_image
-
-    return valueX, resulting_image
+    return valueX, output_image
 
 # process the data with all indicated steps
 def process_the_data(input_image, image_algo):
     #number of steps
-    noSteps = 1
+    noSteps = 2
     i = 0
     #list_of_10 = []
     while i < noSteps:
@@ -147,8 +125,26 @@ def process_the_data(input_image, image_algo):
         #do a step and see what changes are done to the input image
         #the resulting image from the setp is the new input image for next cycle
         valueX, input_image = step_away(input_image, image_algo, valueX)
+
         i += 1
+    #print(input_image, "\n")
     return valueX
+
+#add some empty columns
+def add_cols(data_list, cols):
+    n = 0
+    while n < cols:
+        data_list.append(".")
+        n += 1
+    return data_list
+
+#add some empty rows
+def add_rows(data_list, rows, cols):
+    n = 0
+    while n < rows*cols:
+        data_list.append(".")
+        n += 1
+    return data_list
 
 def get_the_data():
     #read the test puzzle input 
@@ -160,6 +156,8 @@ def get_the_data():
     data_list = []
     rows = 0 # in image
     firstRow = True
+    emptyRows = 5
+
     #process each row in the data
     for element in theData:
         elementTrimmed = element.strip()
@@ -167,15 +165,30 @@ def get_the_data():
             image_algo = elementTrimmed
             firstRow = False
         elif elementTrimmed != "": 
+            #add X empty rows and X empty cols before or after data; to simulate the infinity outwards of the grid
+            if rows == 0:
+                data_list = add_rows(data_list, emptyRows, len(elementTrimmed)+emptyRows*2) # *2 -> i begynnelsen og slutten av linjen
+
             rows += 1   #one more row in input image
             #add each single char to a list - reformat to numpy array later
             i = 0
             while i < len(elementTrimmed):
+                #add 5 empty cols before the data; to simulate the infinity outwards of the grid
+                if i == 0: 
+                    data_list = add_cols(data_list, emptyRows)
+                
                 data_list.append(elementTrimmed[i])
                 i += 1
+                
+                #add 5 empty cols after the data; to simulate the infinity outwards of the grid
+                if i == len(elementTrimmed): 
+                    data_list = add_cols(data_list, emptyRows)
 
-    maxCols = len(elementTrimmed)
-    maxRows = rows
+    #add 5 empty rows and 5 empty cols before or after data; to simulate the infinity outwards of the grid
+    data_list = add_rows(data_list, emptyRows, len(elementTrimmed)+emptyRows*2)
+
+    maxCols = len(elementTrimmed) + emptyRows*2
+    maxRows = rows + emptyRows*2
     #create a numpy array
     input_image = np.array(data_list, dtype="str").reshape(maxRows, maxCols)
     return input_image, image_algo
