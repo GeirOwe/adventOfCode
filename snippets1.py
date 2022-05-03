@@ -16,11 +16,10 @@ def list_comprehension():
         #calculate and add the result as an item in the numbers list
         numbers.append(1 + idx ** 2)
     result_x = numbers
-
     # adding to a list with list comprehension
     numbers = [1 + idx ** 2 for idx in range(10)]
     result_y = numbers
-
+    
     print('result without list comprehension: ', result_x)
     print('result   with  list comprehension: ', result_y, '\n')
     #print(max(result_x))
