@@ -30,6 +30,7 @@ def process_the_data(theData):
         # move to next row in dataset
         row += 1
     
+    #summarize the 3 highest cal totals
     valueX = sum(sorted(calTotal)[-3:])
     return valueX
 
