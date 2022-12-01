@@ -8,40 +8,36 @@ def clear_console():
     print()
 
 def process_the_data(theData):
-    #set initial position for the dataset
+    #initial the variables
     noOfRows = len(theData)
+    lastRow = noOfRows - 1
     noOfCals = 0
     row = 0
-    topThree = []
-    # loop thru the list and calculate no of cals for the Elf. Empty means no more cals for this Elf.
+    calTotal = []
+    
+    # loop thru the file and calculate no of cals for each Elf. 
+    # Empty row means no more cals for this Elf.
     while row < noOfRows:
         # find next instruction in the dataset
         if theData[row] != "" :
             noOfCals = noOfCals + int(theData[row])
         
-        #check if empty row or last row
-        if theData[row] == "" or (row == (noOfRows-1)):
-            if len(topThree) < 3:
-                topThree.append(noOfCals)
-                noOfCals = 0
-            else:
-                if min(topThree) < noOfCals:
-                    topThree.remove(min(topThree))
-                    topThree.append(noOfCals)
-                    noOfCals = 0
-                else:
-                    noOfCals = 0
+        #add the total cals for this elf to list if last row or empty row
+        if theData[row] == "" or row == lastRow:
+            calTotal.append(noOfCals)  
+            noOfCals = 0
         
         # move to next row in dataset
         row += 1
     
-    return sum(topThree)
+    valueX = sum(sorted(calTotal)[-3:])
+    return valueX
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day12022_test_puzzle_input.txt', 'r')
+    #theData = open('day12022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day12022_puzzle_input.txt', 'r')
+    theData = open('day12022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
