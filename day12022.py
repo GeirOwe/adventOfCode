@@ -1,4 +1,4 @@
-# Day1 - 2021 Advent of code
+# Day1 - 2022 Advent of code
 # source: https://adventofcode.com/2022/day/1
 import os
 
