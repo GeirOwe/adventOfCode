@@ -20,7 +20,7 @@ def process_the_data(theData):
     while row < noOfRows:
         # find next instruction in the dataset
         if theData[row] != "" :
-            noOfCals = noOfCals + int(theData[row])
+            noOfCals += int(theData[row])
         
         #add the total cals for this elf to list if last row or empty row
         if theData[row] == "" or row == lastRow:
