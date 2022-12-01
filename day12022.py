@@ -19,11 +19,11 @@ def process_the_data(theData):
     # Empty row means no more cals for this Elf.
     while row < noOfRows:
         # find next instruction in the dataset
-        if theData[row] != "" :
+        if theData[row].isnumeric():
             noOfCals += int(theData[row])
         
         #add the total cals for this elf to list if last row or empty row
-        if theData[row] == "" or row == lastRow:
+        if theData[row] == '' or row == lastRow:
             calTotal.append(noOfCals)  
             noOfCals = 0
         
