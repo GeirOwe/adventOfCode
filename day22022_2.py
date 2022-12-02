@@ -18,6 +18,7 @@ def calc_score(elfPlay, yourPlay):
 
     #Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock. If both 
     # players choose the same shape, the round instead ends in a draw.
+    # X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win.
     roundScore = 0
     ROCKe = 'A'
     PAPERe = 'B'
@@ -25,6 +26,25 @@ def calc_score(elfPlay, yourPlay):
     ROCKy = 'X'
     PAPERy = 'Y'
     SCISSy = 'Z'
+    
+    #how you play if you need to loose
+    if yourPlay == 'X':
+        if elfPlay == ROCKe: yourPlay = SCISSy
+        if elfPlay == SCISSe: yourPlay = PAPERy
+        if elfPlay == PAPERe: yourPlay = ROCKy
+    else:
+        #how you play if you need to loose
+        if yourPlay == 'Y':
+            if elfPlay == ROCKe: yourPlay = ROCKy
+            if elfPlay == SCISSe: yourPlay = SCISSy
+            if elfPlay == PAPERe: yourPlay = PAPERy
+        else:
+            #how you play if you need to win
+            if yourPlay == 'Z':
+                if elfPlay == ROCKe: yourPlay = PAPERy
+                if elfPlay == SCISSe: yourPlay = ROCKy
+                if elfPlay == PAPERe: yourPlay = SCISSy
+    
     #score for choice
     if yourPlay == ROCKy: roundScore += 1
     if yourPlay == PAPERy: roundScore += 2
@@ -83,7 +103,7 @@ def start_the_engine():
     #process the data and return the answer -> correct answer is: 12
     valueX = process_the_data(theData) 
     
-    print('What would your total score be  -> ', valueX,'\n') 
+    print('what would your total score be according to your strategy guide  -> ', valueX,'\n') 
     return 
 
 #let's start
