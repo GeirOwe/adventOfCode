@@ -8,7 +8,7 @@ def clear_console():
     print('< .... AoC 2022 Day 2, part 1 .... >')
     print()
 
-def calc_score(elfPlay, yourPlay):
+def calc_score(elfPlay, myPlay):
     # A for Rock, B for Paper, and C for Scissors.
     # X for Rock, Y for Paper, and Z for Scissors.
     # 
@@ -26,15 +26,15 @@ def calc_score(elfPlay, yourPlay):
     PAPERy = 'Y'
     SCISSy = 'Z'
     #score for choice
-    if yourPlay == ROCKy: roundScore += 1
-    if yourPlay == PAPERy: roundScore += 2
-    if yourPlay == SCISSy: roundScore += 3
+    if myPlay == ROCKy: roundScore += 1
+    if myPlay == PAPERy: roundScore += 2
+    if myPlay == SCISSy: roundScore += 3
 
     #score for play
-    if (yourPlay == ROCKy and elfPlay == SCISSe) or (yourPlay == SCISSy and elfPlay == PAPERe) or (yourPlay == PAPERy and elfPlay == ROCKe):
+    if (myPlay == ROCKy and elfPlay == SCISSe) or (myPlay == SCISSy and elfPlay == PAPERe) or (myPlay == PAPERy and elfPlay == ROCKe):
         #you win
         roundScore += 6
-    elif (yourPlay == ROCKy and elfPlay == ROCKe) or (yourPlay == SCISSy and elfPlay == SCISSe) or (yourPlay == PAPERy and elfPlay == PAPERe):
+    elif (myPlay == ROCKy and elfPlay == ROCKe) or (myPlay == SCISSy and elfPlay == SCISSe) or (myPlay == PAPERy and elfPlay == PAPERe):
         #draw
         roundScore += 3
 
@@ -53,9 +53,9 @@ def process_the_data(theData):
         # the left part contains the instruction
         split = theData[row].split(' ')
         elfPlay = split[0].strip()
-        yourPlay = split[1].strip()
+        myPlay = split[1].strip()
 
-        roundScore = calc_score(elfPlay, yourPlay)
+        roundScore = calc_score(elfPlay, myPlay)
         totalScore += roundScore
         
         # move to next row in dataset

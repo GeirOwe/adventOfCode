@@ -3,58 +3,46 @@
 
 import os
 
+ROCK = "Rock"
+PAPER = "Paper"
+SCISSOR = "Scissor"
+LOOSE = 'X'
+DRAW = 'Y'
+WIN = 'Z'
+
 def clear_console():
     os.system('clear')
     print('< .... AoC 2022 Day 2, part 2 .... >')
     print()
 
-def calc_score(elfPlay, yourPlay):
-    # A for Rock, B for Paper, and C for Scissors.
-    # X for Rock, Y for Paper, and Z for Scissors.
-    # 
-    # The score for a single round is the score for the shape you selected 
-    # (1 for Rock, 2 for Paper, and 3 for Scissors) plus the score for the outcome 
-    # of the round (0 if you lost, 3 if the round was a draw, and 6 if you won).
-
-    #Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock. If both 
-    # players choose the same shape, the round instead ends in a draw.
-    # X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win.
+def calc_score(elfPlay, theStrategy):
+    # Rock defeats Scissors, Scissors defeats Paper, and Paper defeats Rock.
     roundScore = 0
-    ROCKe = 'A'
-    PAPERe = 'B'
-    SCISSe = 'C'
-    ROCKy = 'X'
-    PAPERy = 'Y'
-    SCISSy = 'Z'
     
-    #how you play if you need to loose
-    if yourPlay == 'X':
-        if elfPlay == ROCKe: yourPlay = SCISSy
-        if elfPlay == SCISSe: yourPlay = PAPERy
-        if elfPlay == PAPERe: yourPlay = ROCKy
+    #how you play is based on the strategy
+    if theStrategy == LOOSE:
+        if elfPlay == ROCK: myPlay = SCISSOR
+        if elfPlay == SCISSOR: myPlay = PAPER
+        if elfPlay == PAPER: myPlay = ROCK
     else:
-        #how you play if you need to loose
-        if yourPlay == 'Y':
-            if elfPlay == ROCKe: yourPlay = ROCKy
-            if elfPlay == SCISSe: yourPlay = SCISSy
-            if elfPlay == PAPERe: yourPlay = PAPERy
+        if theStrategy == DRAW: 
+            myPlay = elfPlay
         else:
-            #how you play if you need to win
-            if yourPlay == 'Z':
-                if elfPlay == ROCKe: yourPlay = PAPERy
-                if elfPlay == SCISSe: yourPlay = ROCKy
-                if elfPlay == PAPERe: yourPlay = SCISSy
+            if theStrategy == WIN:
+                if elfPlay == ROCK: myPlay = PAPER
+                if elfPlay == SCISSOR: myPlay = ROCK
+                if elfPlay == PAPER: myPlay = SCISSOR
     
     #score for choice
-    if yourPlay == ROCKy: roundScore += 1
-    if yourPlay == PAPERy: roundScore += 2
-    if yourPlay == SCISSy: roundScore += 3
+    if myPlay == ROCK: roundScore += 1
+    if myPlay == PAPER: roundScore += 2
+    if myPlay == SCISSOR: roundScore += 3
 
     #score for play
-    if (yourPlay == ROCKy and elfPlay == SCISSe) or (yourPlay == SCISSy and elfPlay == PAPERe) or (yourPlay == PAPERy and elfPlay == ROCKe):
+    if (myPlay == ROCK and elfPlay == SCISSOR) or (myPlay == SCISSOR and elfPlay == PAPER) or (myPlay == PAPER and elfPlay == ROCK):
         #you win
         roundScore += 6
-    elif (yourPlay == ROCKy and elfPlay == ROCKe) or (yourPlay == SCISSy and elfPlay == SCISSe) or (yourPlay == PAPERy and elfPlay == PAPERe):
+    elif (myPlay == ROCK and elfPlay == ROCK) or (myPlay == SCISSOR and elfPlay == SCISSOR) or (myPlay == PAPER and elfPlay == PAPER):
         #draw
         roundScore += 3
 
@@ -65,17 +53,20 @@ def process_the_data(theData):
     noOfRows = len(theData)
     row = 0
     totalScore = 0
-    valueX = len(theData)
     
     # loop thru the list and calculate no of cals for the Elf. Empty means no more cals for this Elf.
     while row < noOfRows:
-        #split at ' ' - the right part cotnains the jump " 
-        # the left part contains the instruction
+        #split input at ' ' the left part[0] contains the elfPlay, the right[1] contain my strategy
         split = theData[row].split(' ')
         elfPlay = split[0].strip()
-        yourPlay = split[1].strip()
+        myStrategy = split[1].strip()
+        
+        # A for Rock, B for Paper, and C for Scissors.
+        if elfPlay == 'A': elfPlay = ROCK
+        if elfPlay == 'B': elfPlay = PAPER
+        if elfPlay == 'C': elfPlay = SCISSOR
 
-        roundScore = calc_score(elfPlay, yourPlay)
+        roundScore = calc_score(elfPlay, myStrategy)
         totalScore += roundScore
         
         # move to next row in dataset
@@ -85,9 +76,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day22022_test_puzzle_input.txt', 'r')
+    #theData = open('day22022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day22022_puzzle_input.txt', 'r')
+    theData = open('day22022_puzzle_input.txt', 'r')
 
     #move data into a list - read a line and remove lineshift
     data_list = []
