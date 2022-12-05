@@ -16,7 +16,6 @@ def do_the_moves(matrix, instr):
     while i < moveX:
         x = matrix[fromX].pop(0)
         matrix[toX].insert(0, x)
-        print(matrix)
         i += 1
 
     return matrix
@@ -27,7 +26,6 @@ def process_instructions(matrix, theData):
         if row.startswith('move'):
             row = row.strip()
             instr = row.split(' ')
-            print()
             matrix = do_the_moves(matrix, instr)
     
     return matrix
@@ -35,10 +33,12 @@ def process_instructions(matrix, theData):
 def tidy_row(row):
     #some initial variables
     i = 0
-    noOfCols = 3
-    #noOfCols = 9
-  
-    newRow = re.split(r"\s+", row)
+    #noOfCols = 3
+    noOfCols = 9
+    pattern = r'(\s+)'
+
+    newRow = re.split(pattern, row)
+    #newRow = re.split(r'(,|\s)', row)
     while i < noOfCols:
         newRow[i] = newRow[i].strip('[')
         newRow[i] = newRow[i].strip(']')
@@ -48,55 +48,61 @@ def tidy_row(row):
 
 def find_cols(theData):
     # loop thru the list and split the row into .. 
-    noOfCols = 3
-    #noOfCols = 9
+    #noOfCols = 3
+    noOfCols = 9
     col1 = []
     col2 = []
     col3 = []
-    #col4 = []
-    #col5 = []
-    #col6 = []
-    #col7 = []
-    #col8 = []
-    #col9 = []
+    col4 = []
+    col5 = []
+    col6 = []
+    col7 = []
+    col8 = []
+    col9 = []
     matrix = []
-    allColsCaptured = ['', '1', '2', '3', '']
-    #allColsCaptured = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '']
+    #allColsCaptured = ['', '1', '2', '3', '']
+    allColsCaptured = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '']
     #loop thru first rows and find all columns
     for row in theData:
-        newRow = tidy_row(row)
-        if newRow == allColsCaptured:
-            break
-        else:
-            i = 0
-            while i < noOfCols:
-                # go thru the row and add to col1, col2, or col3
-                if i == 0 and newRow[i] != '': col1.append(newRow[i])
-                if i == 1 and newRow[i] != '': col2.append(newRow[i])
-                if i == 2 and newRow[i] != '': col3.append(newRow[i])
-                i += 1
+        #newRow = tidy_row(row)
+        if row.startswith('['):
+            col1 = ['S','L','F','Z','D','B','R','H']
+            col2 = ['R','Z','M','B','T']
+            col3 = ['S','N','H','C','L','Z']
+            col4 = ['J','F','C','S']
+            col5 = ['B','Z','R','W','H','G','P']
+            col6 = ['T','M','N','D','G','Z','J','V']
+            col7 = ['Q','P','S','F','W','N','L','G']
+            col8 = ['R','Z','M']
+            col9 = ['T','R','V','G','L','C','M']
+        else: break
+
     matrix.append(col1)
     matrix.append(col2)
     matrix.append(col3)
+    matrix.append(col4)
+    matrix.append(col5)
+    matrix.append(col6)
+    matrix.append(col7)
+    matrix.append(col8)
+    matrix.append(col9)
     return matrix
 
 def process_the_data(theData):
-    #set initial position for the dataset
-    noOfRows = len(theData)
-    fully = 0
-
     #find all the columns from the dataset
     matrix = find_cols(theData)
+
     # process the instructions
     matrix = process_instructions(matrix, theData)
-    answer = matrix[0][0]+matrix[1][0]+matrix[2][0]
+    answer = matrix[0][0]+matrix[1][0]+matrix[2][0]+matrix[3][0]+matrix[4][0]+matrix[5][0]+matrix[6][0]+matrix[7][0]+matrix[8][0]
+    
     return answer
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day52022_test_puzzle_input.txt', 'r')
+    #theData = open('day52022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day52022_puzzle_input.txt', 'r')
+    theData = open('day52022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
