@@ -5,19 +5,20 @@ import re
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2022 Day 5, part 1 .... >')
+    print('< .... AoC 2022 Day 5, part 2 .... >')
     print()
 
 def do_the_moves(matrix, instr):
     moveX = int(instr[1])
+    moveY = moveX - 1   #starting position in list
     fromX = int(instr[3]) -1 
     toX = int(instr[5]) - 1
     i = 0
     while i < moveX:
-        x = matrix[fromX].pop(0)
+        x = matrix[fromX].pop(moveY)
         matrix[toX].insert(0, x)
-        print(matrix)
         i += 1
+        moveY -= 1
 
     return matrix
 
@@ -27,7 +28,6 @@ def process_instructions(matrix, theData):
         if row.startswith('move'):
             row = row.strip()
             instr = row.split(' ')
-            print()
             matrix = do_the_moves(matrix, instr)
     
     return matrix
@@ -37,7 +37,7 @@ def tidy_row(row):
     i = 0
     noOfCols = 3
     #noOfCols = 9
-  
+    rowlength = len(row)
     newRow = re.split(r"\s+", row)
     while i < noOfCols:
         newRow[i] = newRow[i].strip('[')
@@ -49,47 +49,35 @@ def tidy_row(row):
 def find_cols(theData):
     # loop thru the list and split the row into .. 
     noOfCols = 3
-    #noOfCols = 9
-    col1 = []
-    col2 = []
-    col3 = []
-    #col4 = []
-    #col5 = []
-    #col6 = []
-    #col7 = []
-    #col8 = []
-    #col9 = []
+    row = 0
+    col = 0
     matrix = []
-    allColsCaptured = ['', '1', '2', '3', '']
-    #allColsCaptured = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '']
+
     #loop thru first rows and find all columns
-    for row in theData:
-        newRow = tidy_row(row)
-        if newRow == allColsCaptured:
-            break
-        else:
-            i = 0
-            while i < noOfCols:
-                # go thru the row and add to col1, col2, or col3
-                if i == 0 and newRow[i] != '': col1.append(newRow[i])
-                if i == 1 and newRow[i] != '': col2.append(newRow[i])
-                if i == 2 and newRow[i] != '': col3.append(newRow[i])
-                i += 1
-    matrix.append(col1)
-    matrix.append(col2)
-    matrix.append(col3)
+    while col < noOfCols:
+        #next column
+        list = []
+        for row in theData:
+            #for all rows
+            newRow = tidy_row(row)
+            if newRow[1].startswith('1'):
+                break
+            else:
+                if newRow[col] != '':
+                    list.append(newRow[col])
+        col += 1
+        matrix.append(list)
+
     return matrix
 
 def process_the_data(theData):
-    #set initial position for the dataset
-    noOfRows = len(theData)
-    fully = 0
-
     #find all the columns from the dataset
     matrix = find_cols(theData)
+
     # process the instructions
     matrix = process_instructions(matrix, theData)
     answer = matrix[0][0]+matrix[1][0]+matrix[2][0]
+    
     return answer
 
 def get_the_data():
