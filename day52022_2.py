@@ -33,42 +33,66 @@ def process_instructions(matrix, theData):
     return matrix
 
 def tidy_row(row):
+    # the length of the row - divide on 4 which is the size of a cell
+    rowlength = len(row)
+    noOfCols = int(rowlength / 4)
+
     #some initial variables
     i = 0
-    noOfCols = 3
-    #noOfCols = 9
-    rowlength = len(row)
-    newRow = re.split(r"\s+", row)
+    newRow = []
+    row = row.strip('\n')
+    list1 = []
+    list1[:0] = row
+
+    #loop thru all cells and populate the row in a new list to get 
+    # all columns correctly
+    pos = 1
     while i < noOfCols:
-        newRow[i] = newRow[i].strip('[')
-        newRow[i] = newRow[i].strip(']')
+        if list1[pos] != '':
+            newRow.append(list1[pos])
+        else:
+            newRow.append('')
         i += 1
+        pos += 4
         
     return newRow
 
 def find_cols(theData):
     # loop thru the list and split the row into .. 
-    noOfCols = 3
+    for row in theData:
+        rowlength = len(row)
+        noOfCols = int(rowlength / 4)
+        break
     row = 0
     col = 0
     matrix = []
 
-    #loop thru first rows and find all columns
+    #loop thru first rows and find all columns with content
+    # unti matrix is complete -> i.e. a '1' in first char
     while col < noOfCols:
         #next column
         list = []
         for row in theData:
-            #for all rows
+            #return a list with all columns filled with chars or space
             newRow = tidy_row(row)
-            if newRow[1].startswith('1'):
+            if newRow[0].startswith('1'):
                 break
             else:
-                if newRow[col] != '':
+                if newRow[col] != ' ':
                     list.append(newRow[col])
         col += 1
         matrix.append(list)
 
     return matrix
+
+def find_answer(matrix):
+    i = 0
+    answer = ''
+    #concatenate all letters in first column
+    while i < len(matrix):
+        answer += matrix[i][0]
+        i+= 1
+    return answer
 
 def process_the_data(theData):
     #find all the columns from the dataset
@@ -76,15 +100,17 @@ def process_the_data(theData):
 
     # process the instructions
     matrix = process_instructions(matrix, theData)
-    answer = matrix[0][0]+matrix[1][0]+matrix[2][0]
+    
+    #find answer
+    answer = find_answer(matrix)
     
     return answer
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day52022_test_puzzle_input.txt', 'r')
+    #theData = open('day52022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day52022_puzzle_input.txt', 'r')
+    theData = open('day52022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
