@@ -34,6 +34,7 @@ def check_element(matrix, row, col):
         colY.append(int(rad[col]))
 
     #check row
+    # a[start:]    - items start through the rest of the array
     if element > max(rowX[:col]) or element > max(rowX[col+1:]):
         visible += 1
     else:
