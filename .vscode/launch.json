@@ -5,9 +5,10 @@
     "version": "3.7.3",
     "configurations": [
         
+        
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "python3",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
