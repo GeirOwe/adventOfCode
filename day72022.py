@@ -21,8 +21,8 @@ def build_filesys(theData):
             if row[5] == '/':
                 if i == 0: 
                     #add root level
-                    level += 1
                     filesys.append(row[5] + str(level))
+                    level += 1
                     i += 1
                     max_level += 1
                 else:
@@ -33,6 +33,9 @@ def build_filesys(theData):
                 if row[5] == '.': 
                     level -= 1
                     if level < 0: level = 0 #cant go beyond root level
+                    else:
+                        filesys.append('!' + str(level))
+                        i += 1 
                 else:
                     #last row?
                     if i == len(filesys): 
@@ -105,9 +108,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day72022_test_puzzle_input.txt', 'r')
+    #theData = open('day72022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day72022_puzzle_input.txt', 'r')
+    theData = open('day72022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:

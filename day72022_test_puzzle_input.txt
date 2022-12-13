@@ -1,8 +1,5 @@
 $ cd /
 $ ls
-dir a
-14848514 b.txt
-8504156 c.dat
 dir d
 $ cd a
 $ ls
@@ -15,6 +12,9 @@ $ ls
 584 i
 $ cd ..
 $ cd ..
+dir a
+14848514 b.txt
+8504156 c.dat
 $ cd d
 $ ls
 4060174 j
