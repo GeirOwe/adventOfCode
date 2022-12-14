@@ -47,6 +47,9 @@ def do_the_move(trail, dir, move, hX, hY, tX, tY):
     # move head once and check distance to tail
     # fter each step, you'll need to update the position of the tail. 
     # head moves only in straight lines - tail moves vertically when needed
+    #whenever head moves to a new spot - mark in the trail
+    #trail = [[tX,tY] for count in range(len(trail))]
+    #trail[tX][tY] = '#'
     return trail, hX, hY, tX, tY
 
 def process_the_data(theData):
@@ -68,7 +71,7 @@ def process_the_data(theData):
     
     #count where tail has been
     for row in trail:
-        valueX = valueX + trail[0].count('.')
+        valueX = valueX + trail[0].count('#')
 
     return valueX
 
