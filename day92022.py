@@ -40,7 +40,13 @@ def trail_size(theData):
 
     return trail
 
+# do the move and watch the tail
+# If the head is ever two steps directly up, down, left, or right from the tail, 
+# the tail must also move one step in that direction
 def do_the_move(trail, dir, move, hX, hY, tX, tY):
+    # move head once and check distance to tail
+    # fter each step, you'll need to update the position of the tail. 
+    # head moves only in straight lines - tail moves vertically when needed
     return trail, hX, hY, tX, tY
 
 def process_the_data(theData):
