@@ -5,7 +5,7 @@ import os
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2022 Day 7, part 1 .... >')
+    print('< .... AoC 2022 Day 7, part 2 .... >')
     print()
     return
 
@@ -65,29 +65,42 @@ def find_dir_size(level, rowNo, filesys):
                     if int(row[1:]) <= level: break
             else:
                 dir_size += row
-                if dir_size > max_size: break
             
         i += 1
     return dir_size
 
-# find all of the directories with a total size of at most 100000
-def check_dir(filesys):
-    relevant_dir = []
-    rowNo = 0
-    max_size = 100000
+def filesize(filesys):
+    used_space = 0
     for row in filesys:
         #look for directories
         # Check if row is string 
+        row_is_string = isinstance(row, str)
+        if row_is_string:
+            i = 0   #skip to next
+        else:   
+            used_space += row
+    return used_space
+
+# find all of the directories with a total size of at most 100000
+def check_dir(filesys):
+    rowNo = 0
+    disk_space = 70000000
+    used_space = filesize(filesys)
+    unused_space = disk_space - used_space
+    space_needed = 30000000 - unused_space
+    candidate = disk_space
+    for row in filesys:
+        #look for directories - Check if row is string 
         row_is_string = isinstance(row, str)
         if row_is_string:    
             # find size of all files in dir
             level = int(row[1:])
             dir_size = find_dir_size(level, rowNo, filesys)
-            if dir_size < max_size: 
-                relevant_dir.append(dir_size)
+            if dir_size > space_needed: 
+                if dir_size < candidate: candidate = dir_size
         rowNo += 1
 
-    return relevant_dir
+    return candidate
 
 def print_it(filesys):
     for row in filesys:
@@ -110,21 +123,17 @@ def process_the_data(theData):
     #build filesys
     filesys = build_filesys(theData)
     #print_it(filesys)
-    #print('\n')
 
     # find all of the directories with a total size of at most 100000
-    relevant_dir = check_dir(filesys)
+    candidate = check_dir(filesys)
 
-    # then calculate the sum of their total sizes.
-    valueX = sum(relevant_dir)
-
-    return valueX
+    return candidate
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day72022_test_puzzle_input.txt', 'r')
+    #theData = open('day72022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day72022_puzzle_input.txt', 'r')
+    theData = open('day72022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
@@ -139,11 +148,10 @@ def start_the_engine():
     #process the data and return the answer -> correct answer is: ...
     valueX = process_the_data(theData) 
     
-    print('What is the sum of the total sizes of those directories -> ', valueX,'\n') 
+    print('hat is the total size of that directory we plan to delete -> ', valueX,'\n') 
     return 
 
 #let's start
 if __name__ == '__main__':
     clear_console()
     start_the_engine()
-
