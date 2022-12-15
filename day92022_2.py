@@ -14,8 +14,8 @@ def trail_size(theData):
     trail = []
     rad = [] 
     # just preparing a grid / trail of 1000 x 1000
-    x = 1000
-    y = 1000
+    x = 30
+    y = 30
     i = 0
     j = 0
     # prepare trail with dots
@@ -76,7 +76,7 @@ def move_tail(hCol, hRow, tCol, tRow):
 # do the move and watch the tail
 # If the head is ever two steps directly up, down, left, or right from the tail, 
 # the tail must also move one step in that direction
-def do_the_move(trail, dir, move, hCol, hRow, tCol, tRow):
+def do_the_move(trail, dir, move, hCol, hRow, tCol, tRow, tail_length):
     i = 0
     # move head once and check distance to tail
     while i < move:
@@ -84,13 +84,35 @@ def do_the_move(trail, dir, move, hCol, hRow, tCol, tRow):
         if dir == 'L': hCol -= 1     #move left on same row
         if dir == 'U': hRow += 1     #move up a row
         if dir == 'D': hRow -= 1     #move down a row
-        # after each step, you'll need to update the position of the tail. 
-        hCol, hRow, tCol, tRow, tail_moved = move_tail(hCol, hRow, tCol, tRow)
-        #whenever head moves to a new spot - mark in the trail
-        if tail_moved: trail[tRow][tCol] = '#'
-        i += 1
+        # after each step, you'll need to update the position of the tail.
+        # track head_pos before it moves.
+        org_hCol = hCol
+        org_hRow = hRow
+        #move the complete tail
+        j = tail_length
+        while j > 0:
+            # track tail_pos before it moves.
+            pt_row = tRow
+            pt_col = tCol
+            hCol, hRow, tCol, tRow, tail_moved = move_tail(hCol, hRow, tCol, tRow)
+            #one less tail to check
+            j -= 1
+            #whenever head moves to a new spot - mark in the trail
+            if tail_moved: 
+                trail[tRow][tCol] = '#'
 
-    return trail, hCol, hRow, tCol, tRow
+                if tail_length < 9: tail_length += 1
+                # the tail becomes the new head, next tail position also needs to move
+                hCol = tCol
+                hRow = tRow
+                tCol = pt_col
+                tRow = pt_row
+        i += 1
+        #reset header data - since used to move tail
+        hRow = org_hRow
+        hCol = org_hCol
+
+    return trail, hCol, hRow, tCol, tRow, tail_length
 
 def process_the_data(theData):
     #find answer
@@ -101,6 +123,7 @@ def process_the_data(theData):
     tCol = 0
     tRow = 0
     trail = trail_size(theData)
+    tail_length = 1
     #start position
     trail[0][0] = '#'
     #do all the moves
@@ -110,7 +133,7 @@ def process_the_data(theData):
         dir = splitCol[0]
         move = int(splitCol[1])
         #do the move
-        trail, hCol, hRow, tCol, tRow  = do_the_move(trail, dir, move, hCol, hRow, tCol, tRow)
+        trail, hCol, hRow, tCol, tRow, tail_length  = do_the_move(trail, dir, move, hCol, hRow, tCol, tRow, tail_length)
     
     #count where tail has been
     valueX = np.sum(trail == '#')
@@ -119,7 +142,7 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day92022_test_puzzle_input.txt', 'r')
+    theData = open('day92022_test2_puzzle_input.txt', 'r')
     #read the puzzle input 
     #theData = open('day92022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
