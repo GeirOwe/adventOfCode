@@ -6,7 +6,7 @@ import numpy as np
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2022 Day 9, part 1 .... >')
+    print('< .... AoC 2022 Day 9, part 2 .... >')
     print()
     return
 
@@ -119,9 +119,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    #theData = open('day92022_test_puzzle_input.txt', 'r')
+    theData = open('day92022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    theData = open('day92022_puzzle_input.txt', 'r')
+    #theData = open('day92022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
