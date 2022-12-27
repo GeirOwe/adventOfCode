@@ -82,7 +82,6 @@ def do_round(monkeys):
     for monkey in monkeys:
         #inspect all itema
         items = monkey.get_items()
-        print(len(items))
         for item in items:
             #inspect worry level of item -> i.e. the value
             old_wl = item
