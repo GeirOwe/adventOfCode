@@ -2,7 +2,6 @@
 # source: https://adventofcode.com/2022/day/11
 
 import os
-import numpy as np
 
 def clear_console():
     os.system('clear')
@@ -80,7 +79,7 @@ def calc_new_wl(old_wl, ops):
 
 def do_round(monkeys):
     for monkey in monkeys:
-        #inspect all itema
+        #inspect all items for the monkeys
         items = monkey.get_items()
         for item in items:
             #inspect worry level of item -> i.e. the value
@@ -96,7 +95,7 @@ def do_round(monkeys):
                 #throw to monkey [i] -> monkey id
                 id = throw_to[1]
             
-            # count that one insection has been done
+            # count that the inspection has been done
             monkey.add_inspected()
             #throw to the the item's worry level to next monkey
             monkeys[id].add_item(new_wl)
