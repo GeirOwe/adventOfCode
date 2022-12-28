@@ -2,6 +2,8 @@
 # source: https://github.com/am93/aoc2022/blob/main/day13.py
 
 import os
+from ast import literal_eval
+
 
 def clear_console():
     os.system('clear')
@@ -50,12 +52,19 @@ def process_the_data(theData):
     for row in theData:
         # read the pair
         if row != '':
-            # move from trings to thru list
-            pair.append(eval(row))
+            # The row contains a list in a string. we need to convert it from string to list
+            # A common use case for Python’s eval() is to evaluate strings 
+            #   pair.append(eval(row))
+            # that contain standard Python literals and turn them into concrete objects.
+            # The standard library provides a function called literal_eval() that can help 
+            # achieve this goal. The function doesn’t support operators, but it does support 
+            # lists, tuples, numbers, strings,
+            pair.append(literal_eval(row))
         else:
             # check the pair
             pair_no += 1
-            #right_order = process_pair(pair, done)
+            #process_pair(pair, done) -> negative numbe means right order.
+            # -1 last item in list, -2 is second last
             if check_signal(pair[-2], pair[-1]) < 0:
                 ind_list.append(pair_no)
             #prepare for next pair
@@ -67,9 +76,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day132022_test_puzzle_input.txt', 'r')
+    #theData = open('day132022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day132022_puzzle_input.txt', 'r')
+    theData = open('day132022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
@@ -81,7 +90,7 @@ def start_the_engine():
     #get the data and read them into a list
     theData = get_the_data()
     
-    #process the data and return a list of monkey objects from the input file
+    #process the data -> 5058 is the correct answer
     valueX = process_the_data(theData)
 
     print('What is the sum of the indices of those pairs -> ', valueX,'\n') 
