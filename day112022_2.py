@@ -87,9 +87,6 @@ def do_round(monkeys):
             old_wl = item
             # calc new worry level based on operation
             new_wl = calc_new_wl(old_wl, monkey.get_operation())
-            # your worry level to be divided by three and rounded 
-            # down to the nearest integer
-            #new_wl = new_wl // 3
             #check who to throw to
             throw_to = monkey.get_throw_to()
             if new_wl % monkey.get_test() == 0:
