@@ -2,7 +2,8 @@
 # source: https://adventofcode.com/
 
 import os
-from tkinter import Y
+import sys
+import resource
 
 #clear the console and start the programme
 def clear_console():
@@ -38,7 +39,8 @@ def define_grid(minX, minY, maxX, maxY):
     while i <= maxY:
         list = []
         j = 0
-        while j <= (maxX-minX):
+        while j <= ((maxX-minX)):   #add 1 extra for the abyss column
+            if j==0: list.append('~')
             list.append('.')
             j += 1
         grid.append(list)
@@ -48,7 +50,7 @@ def define_grid(minX, minY, maxX, maxY):
 def draw_path(grid, path):
     prevX, prevY = 0, 0
     for coord in path:
-        x = coord[0]
+        x = coord[0] + 1    #no rocks in the abyss -> column zero
         y = coord[1]
         #first coord?
         if prevX == 0: 
@@ -90,43 +92,62 @@ def draw_path(grid, path):
                                      
     return grid 
 
-def pour_sand(grid, sand):
-    units_of_sand = 0
+def pour_sand(grid, sand, units_of_sand, more_sand):
     empty = ['.']
+    abyss = ['~']
+    last_row = False
     # sand is produced one unit at a time, and the next unit of sand is 
     # not produced until the previous unit of sand comes to rest
     # The sand is pouring into the cave from point 500,0.
     x = sand[0]
     y = sand[1] + 1
-    if grid[y][x] in empty:
+    #next row, unless last row
+    if y < len(grid): last_row = False
+    else: 
+        last_row = True
+        y = sand[1]
+    #continue to drop?
+    if grid[y][x] in empty and last_row == False:
         # continue to drop
         sand[1] = y
-        units_of_sand = pour_sand(grid, sand)
+        units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
     else:
         # instead move diagonally one step down and to the left
         # If that tile is blocked, the unit of sand attempts to instead move 
         # diagonally one step down and to the right.
         x = sand[0] - 1
-        if grid[y][x] in empty:
-            # continue to drop
-            sand[0] = y
-            sand[1] = x
-            units_of_sand = pour_sand(grid, sand)
-        else:
-            x = sand[0] + 2
+        if grid[y][x] in empty or grid[y][x] in abyss:
             if grid[y][x] in empty:
-                # continue to drop
-                sand[0] = y
-                sand[1] = x
-                units_of_sand = pour_sand(grid, sand)
+                #continue here
+                sand[0] = x
+                sand[1] = y
+                units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
+            else: 
+                more_sand = False
+        else:
+            x = sand[0] + 1
+            if grid[y][x] in empty or grid[y][x] in abyss:
+                if grid[y][x] in empty:
+                    #continue here
+                    sand[0] = x
+                    sand[1] = y
+                    units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
+                else: 
+                    #the abyss - stop
+                    more_sand = False
             else:
-                #come to rest
+                #check if current pos = empty
                 x = sand[0]
                 y = sand[1]
-                units_of_sand += 1
-                grid[y][x] = 'o'
+                if grid[y][x] in empty:
+                    #come to rest
+                    units_of_sand += 1
+                    grid[y][x] = 'o'
+                else:
+                    #the abyss - stop
+                    more_sand = False
 
-    return units_of_sand
+    return units_of_sand, more_sand
 
 def add_rocks(grid, theData, minX, minY):
     for row in theData:
@@ -148,6 +169,13 @@ def add_rocks(grid, theData, minX, minY):
         grid = draw_path(grid, path)
     return grid
 
+def sand_start(minX):
+    sand = []
+    x = (500 - minX) + 1    #pluss one for the abyss, column zero
+    sand.append(x)
+    sand.append(0) 
+    return sand, x
+
 #start function
 def process_data(theData):
     #define the grid -> find lowest/higest x and y
@@ -158,15 +186,17 @@ def process_data(theData):
     # add the rocks
     grid = add_rocks(grid, theData, minX, minY)
     # add sand at 500, 0
-    sand = []
-    x = 500 - minX
-    sand.append(x)
-    sand.append(0) 
+    sand, x = sand_start(minX)
     grid[0][x] = '+'
     # start pouring the sand. sand is produced one unit at a time, 
     # and the next unit of sand is not produced until the previous 
     # unit of sand comes to rest
-    units_of_sand = pour_sand(grid, sand)
+    units_of_sand = 0
+    more_sand = True
+    while more_sand:
+        # add sand at 500, 0
+        sand, x = sand_start(minX)
+        units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
     return units_of_sand
 #end function
 
@@ -184,6 +214,10 @@ def get_the_data():
 
 #start function
 def start_the_challenge():
+    #change recursion limit and resource usage
+    #sys.setrecursionlimit(30000)
+    #resource.setrlimit(10000)
+    
     #get the data and read the into  list
     theData = get_the_data()
 
@@ -191,7 +225,7 @@ def start_the_challenge():
     valueX = process_data(theData) 
     
     print('forventet resultat er ...  24 ...') 
-    print('How many units of sand come to rest before sand starts flowing into the abyss below? - ', valueX, '\n')
+    print('How many units of sand come to rest -> ', valueX, '\n')
 
     return 
 #end function
