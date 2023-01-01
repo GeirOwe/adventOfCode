@@ -99,8 +99,8 @@ def init_grid(minX, minY, maxX, maxY):
     grid = []
     row = []
     x, y = 0, 0
-    while y < maxY:
-        while x < maxX:
+    while y <= maxY:
+        while x <= maxX:
             row.append('.')
             x += 1
         grid.append(row)
@@ -144,7 +144,8 @@ def add_signals_to_grid(grid, sensor_list):
         #y = row, x = col
         grid[sy][sx] = 'S'
         grid[by][bx] = 'B'
-        grid = add_whitespace(grid, sx, sy, bx, by)
+        # the code is not complete. fix code and remove comment
+        #grid = add_whitespace(grid, sx, sy, bx, by)
 
     return grid
 
