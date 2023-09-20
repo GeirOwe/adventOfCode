@@ -97,6 +97,7 @@ def pour_sand(grid, sand, units_of_sand, more_sand, at_rest):
     empty = ['.']
     abyss = ['~']
     last_row = False
+    max_X = len(grid[0]) -1
     # sand is produced one unit at a time, and the next unit of sand is 
     # not produced until the previous unit of sand comes to rest
     # The sand is pouring into the cave from point 500,0.
@@ -107,7 +108,15 @@ def pour_sand(grid, sand, units_of_sand, more_sand, at_rest):
     else: 
         last_row = True
         y = sand[1]
-    #continue to drop?
+        #check if the cell in last row is empty
+        if grid[y][x] in empty:
+            #come to rest
+            units_of_sand += 1
+            grid[y][x] = 'o'
+            at_rest = True
+            return grid, sand, units_of_sand, more_sand, at_rest
+
+    #continue to drop if not last row?
     if grid[y][x] in empty and last_row == False:
         # continue to drop
         sand[1] = y
@@ -125,29 +134,40 @@ def pour_sand(grid, sand, units_of_sand, more_sand, at_rest):
                 at_rest = True
                 more_sand = False
         else:
-            x = sand[0] + 1
-            if grid[y][x] in empty or grid[y][x] in abyss:
-                if grid[y][x] in empty:
-                    #continue here
-                    sand[0] = x
-                    sand[1] = y
-                    #units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
-                else: 
-                    #the abyss - stop
+            #next col, unless last col
+            if sand[0] < max_X:
+                x = sand[0] + 1
+                if grid[y][x] in empty or grid[y][x] in abyss:
+                    if grid[y][x] in empty:
+                        #continue here
+                        sand[0] = x
+                        sand[1] = y
+                    else: 
+                        #the abyss - stop
+                        at_rest = True
+                        more_sand = False
+                else:
+                    #check if current pos = empty
+                    x = sand[0]
+                    y = sand[1]
                     at_rest = True
-                    more_sand = False
+                    if grid[y][x] in empty:
+                        #come to rest
+                        units_of_sand += 1
+                        grid[y][x] = 'o'
+                    else:
+                        #the abyss - stop
+                        more_sand = False
             else:
-                #check if current pos = empty
+                #check if the cell in last col is empty
                 x = sand[0]
                 y = sand[1]
-                at_rest = True
                 if grid[y][x] in empty:
                     #come to rest
                     units_of_sand += 1
                     grid[y][x] = 'o'
-                else:
-                    #the abyss - stop
-                    more_sand = False
+                    at_rest = True
+                    return grid, sand, units_of_sand, more_sand, at_rest
 
     return grid, sand, units_of_sand, more_sand, at_rest
 
@@ -201,18 +221,14 @@ def process_data(theData):
         at_rest = False
         while at_rest != True:
             grid, sand, units_of_sand, more_sand, at_rest = pour_sand(grid, sand, units_of_sand, more_sand, at_rest)
-            
-            if  units_of_sand == 779: 
-                print(units_of_sand)
-                #more_sand = False
     return units_of_sand
 #end function
 
 def get_the_data():
     #read the test puzzle input 
-    #theData = open('day142022_test_puzzle_input.txt', 'r')
+    theData = open('day142022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    theData = open('day142022_puzzle_input.txt', 'r')
+    #theData = open('day142022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
