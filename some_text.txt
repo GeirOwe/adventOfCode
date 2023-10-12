@@ -1,60 +1,23 @@
---- Day 1: Calorie Counting ---
-
-Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
-
-To supply enough magical energy, the expedition needs to retrieve a minimum of fifty stars by December 25th. Although the Elves assure you that the grove has plenty of fruit, you decide to grab any fruit you see along the way, just in case.
-
-Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
-
-The jungle must be too overgrown and difficult to navigate in vehicles or access from the air; the Elves' expedition traditionally goes on foot. As your boats approach land, the Elves begin taking inventory of their supplies. One important consideration is food - in particular, the number of Calories each Elf is carrying (your puzzle input).
-
-The Elves take turns writing down the number of Calories contained by the various meals, snacks, rations, etc. that they've brought with them, one item per line. Each Elf separates their own inventory from the previous Elf's inventory (if any) by a blank line.
-
-For example, suppose the Elves finish writing their items' Calories and end up with the following list:
-
-1000
-2000
-3000
-
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000
-This list represents the Calories of the food carried by five Elves:
-
-The first Elf is carrying food with 1000, 2000, and 3000 Calories, a total of 6000 Calories.
-The second Elf is carrying one food item with 4000 Calories.
-The third Elf is carrying food with 5000 and 6000 Calories, a total of 11000 Calories.
-The fourth Elf is carrying food with 7000, 8000, and 9000 Calories, a total of 24000 Calories.
-The fifth Elf is carrying one food item with 10000 Calories.
-In case the Elves get hungry and need extra snacks, they need to know which Elf to ask: they'd like to know how many Calories are being carried by the Elf carrying the most Calories. In the example above, this is 24000 (carried by the fourth Elf).
-
-Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
-
-Your puzzle answer was 70374.
-
---- Part Two ---
-
-By the time you calculate the answer to the Elves' question, they've already realized that the Elf carrying the most Calories of food might eventually run out of snacks.
-
-To avoid this unacceptable situation, the Elves would instead like to know the total Calories carried by the top three Elves carrying the most Calories. That way, even if one of those Elves runs out of snacks, they still have two backups.
-
-In the example above, the top three Elves are the fourth Elf (with 24000 Calories), then the third Elf (with 11000 Calories), then the fifth Elf (with 10000 Calories). The sum of the Calories carried by these three elves is 45000.
-
-Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?
-
-Your puzzle answer was 204610.
-
-Both parts of this puzzle are complete! They provide two gold stars: **
-
-At this point, you should return to your Advent calendar and try another puzzle.
-
-If you still want to see it, you can get your puzzle input.
-
-You can also [Share] this puzzle.
+Israel has said there will be no humanitarian break to its siege of the Gaza Strip until all its hostages are freed, amid growing concern over dwindling water, food and fuel supplies after a fifth night of bombardment.
+The energy minister, Israel Katz, wrote on social media that no “electrical switch will be turned on, no water hydrant will be opened and no fuel truck will enter” until the “abductees” were free. The United Nations experts have condemned the Israeli bombardment as “collective punishment”, which is a war crime.
+Israel is preparing to launch a ground invasion in response to bloody massacres carried out in 20 Israeli communities by the Palestinian Islamist group Hamas last weekend, during which dozens of hostages were also seized, in the most serious escalation in the region for 50 years.
+The US secretary of state, Antony Blinken, landed in Tel Aviv on Thursday as part of a Middle East tour to show Washington’s solidarity with Israel, after a first plane loaded with US munitions arrived in Israel on Wednesday night. “You may be strong enough on your own to defend yourself,” Blinken said at a joint press conference with Israel’s prime minister, Benjamin Netanyahu. “But as long as America exists, you will never, ever have to. 
+We will always be there by your side.”
+Israel Defence Forces strikes killed at least 33 people within two hours overnight on Thursday, according to Al Jazeera’s local reporter, bringing the death toll in Gaza to 1,354. The reporter said fighter jets had attacked houses in several areas, and civil defence groups recovered the bodies of the dead. In some areas, residents were sifting through rubble with their bare hands looking for survivors and bodies.
+According to the report, since the fighting began, six neighbourhoods in the strip have been destroyed. 
+Eighteen healthcare facilities and 20 ambulances had been affected and 11 healthcare workers killed, the World Health Organization said, in the most intense bombing campaign the strip has suffered in the 16 years since Hamas seized control of the tiny, overcrowded area, home to 2.3 million people.
+The UN said late on Wednesday the number of people displaced by the airstrikes had soared 30% within 24 hours to 339,000 – two-thirds of them crowding into UN schools. Palestinian media said that bombing had killed the brother of Mohammed Deif, Hamas’s military commander, and a senior commander from Palestinian Islamic Jihad.
+Hazem Balousha, the Guardian’s reporter in Gaza, reached by phone on Thursday morning, said the strip’s residents had been told that hospitals had stopped admitting all but emergency cases. Rafah, Gaza’s crossing point with Egypt, remained closed, and the only power station ran out of fuel on Tuesday, leaving the strip powered by scattered private generators. 
+Those will shut off as well if fuel is not allowed in and the Red Cross has pleaded for fuel deliveries in order to prevent overwhelmed hospitals from “turning into morgues”.
+In Israel, the reported death toll has climbed to 1,300. Lt Col Richard Hecht, an Israeli military spokesperson, told reporters on Thursday that forces were preparing for a ground assault but that the political leadership had not yet ordered one. Netanyahu has vowed to “crush and destroy” Hamas and as of Wednesday night, he leads a newly formed unity government and war cabinet, including members of the opposition.
+Benny Gantz, the leader of the centrist National Unity party, a former defence minister and a strident critic of Netanyahu’s current far-right government, said: “We are all in this together. We are all enlisting. This is not a political partnership, but rather a unity of fate. This is the time to close ranks and to win.”
+Blinken will also visit Jordan, and Palestinian officials have said he will meet the Palestinian Authority president, Mahmoud Abbas, who controls parts of the West Bank.
+Abbas, whose Fatah movement lost control of Gaza to Hamas in 2007, has not condemned the attacks on Israel, instead blaming the violence on the neglect of Palestinian grievances and the 56-year-old occupation, and has called for Palestinians outside Gaza to resist the Israeli military.
+Blinken’s visit coincides with the arrival of a US aircraft carrier in the region, amid fears that the events of the last week could escalate, drawing in Hezbollah, the Iran-backed Lebanese militant group, and Palestinian factions in the occupied West Bank and the restive city of Jerusalem. 
+In the West Bank, clashes in several areas have erupted between Palestinians and IDF troops, as well as Israeli settlers living in the territory.
+Gen Michael Kurilla, commander of US central command, said: “The arrival of these highly capable forces to the region is a strong signal of deterrence should any actor hostile to Israel consider trying to take advantage of this situation.”
+The emergency war cabinet must decide now what the country’s strategic objectives will be in Gaza. A ground offensive, the first since a seven-week war in 2014, is likely to bring even higher casualties on both sides in brutal house-to-house fighting. Israel has mobilised an unprecedented 360,000 reservists, massed additional forces near the strip, and evacuated tens of thousands of residents from nearby communities.
+Overnight, fighting continued on Israeli soil on the Gaza periphery, as the IDF struggled to secure the breached security fence the country had relied on to contain Hamas. Eleven Palestinian militants were reported killed by the Israeli media.
+Strategic planning has been complicated by the presence of Israeli hostages, among them children and elderly people, inside the Gaza Strip.
+Israel’s Army Radio, citing a foreign diplomat, said that those kidnapped had been spread out across the enclave, some being held in private houses, and the factions themselves were not sure of the total number of hostages. Israeli media has put the figure at between 100 and 150.
+As reporters have gained access to affected towns and kibbutzim this week, the scale of the carnage is becoming clearer. IDF officials said they entered homes strewn with bodies, finding women who had been raped and killed, and children who had been shot and burned.

@@ -4,6 +4,7 @@
 import os
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from collections import Counter
 
 #clear the console and start the programme
 def clear_console():
@@ -15,7 +16,7 @@ def clear_console():
 #start function
 def process_data(theData):
     #opprett wordcloud
-    cloud = WordCloud(width=800, height=400, background_color='white').generate(theData)
+    cloud = WordCloud(width=800, height=400, background_color='white', max_words=20).generate(theData)
     return cloud
 
 def show_wordcloud(cloud):
@@ -26,11 +27,13 @@ def show_wordcloud(cloud):
     return
 
 def get_the_data():
+    tekst = ''
     with open('some_text.txt', 'r', encoding='utf-8') as file:
-        theData = file.read()
-    return theData
+        for linje in file:
+            tekst += linje.strip()
+    return tekst
 
-def start_NexUs():
+def get_going():
     #get the data
     theData = get_the_data()
     #process the data and return the answer
@@ -44,4 +47,4 @@ def start_NexUs():
 #let's start
 if __name__ == '__main__':
     clear_console()
-    start_NexUs()
+    get_going()
