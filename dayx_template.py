@@ -39,19 +39,4 @@ def get_the_data():
 
 #start function
 def start_the_challenge():
-    #get the data and read the into  list
-    theData = get_the_data()
-
-    #process the codes and return the answer
-    valueX = process_codes(theData) 
-    
-    print('\nexpect -> 6730673') 
-    print('result ->', valueX, '\n')
-
-    return 
-#end function
-
-#let's start
-if __name__ == '__main__':
-    clear_console()
-    start_the_challenge()
+    #get the data and read th
