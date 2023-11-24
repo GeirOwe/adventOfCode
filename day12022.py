@@ -31,7 +31,7 @@ def process_the_data(theData):
         row += 1
     
     #summarize the 3 highest cal totals
-    valueX = sum(sorted(calTotal)[-3:])
+    valueX = sum(sorted(calTotal)[-1:])
     return valueX
 
 def get_the_data():
@@ -51,8 +51,7 @@ def start_the_engine():
     theData = get_the_data()
     
     #process the data and return the answer -> correct answer is: 1856459736
-    valueX = process_the_data(theData) 
-    
+    valueX = process_the_data(theData)
     print('How many Calories are those Elves carrying in total -> ', valueX,'\n') 
     return 
 
