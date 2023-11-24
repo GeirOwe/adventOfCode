@@ -1,3 +1,3 @@
 # adventOfCode
-the advent of code 2021 challenge.
-found at url: https://adventofcode.com/2021
+the advent of code challenge.
+found at url: https://adventofcode.com
