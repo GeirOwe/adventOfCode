@@ -11,24 +11,14 @@ def clear_console():
 
 def process_the_data(theData):
     #set initial position for the dataset
-    noOfRows = len(theData)
-    row = 0
-    totalScore = 0
-    valueX = len(theData)
+    totalScore = 42
     
-    # loop thru the list and calculate no of cals for the Elf. Empty means no more cals for this Elf.
-    while row < noOfRows:
-        #split at ' ' - the right part cotnains the jump " 
-        # the left part contains the instruction
-        split = theData[row].split(' ')
+    # loop thru the list and calculate no of cals for the Elf. 
+    # Empty means no more cals for this Elf.
+    for theRow in theData:
+        split = theRow.split(' ')
         elfPlay = split[0].strip()
         myPlay = split[1].strip()
-
-        roundScore = 1
-        totalScore += roundScore
-        
-        # move to next row in dataset
-        row += 1
 
     return totalScore
 
