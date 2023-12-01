@@ -26,7 +26,12 @@ def fix_row(row):
     }
 
     #create a pattern to match the numbers dict with the chars in the row
+    #   re.compile('|'.join(map(re.escape, numbers.keys()))): This line creates a regular expression 
+    #   pattern by joining the keys from the numbers dictionary using the | (pipe) as a separator. 
+    #   re.escape is used to escape any special characters in the keys.
     pattern = re.compile('|'.join(map(re.escape, numbers.keys())))
+    #   lambda match: numbers[match.group(0)]: This is a lambda function (replace_function) that takes a 
+    #   match object and returns the corresponding value from the numbers dictionary for the matched key.
     replace_function = lambda match: numbers[match.group(0)]
     #move the replaces pattern to a new row
     newrow = pattern.sub(replace_function, row)
@@ -66,7 +71,7 @@ def find_numbers(row):
     if digits:
         # Return the first and last digits
         sumChar = digits[0] + digits[-1]
-
+    print(row, ' -> ', sumChar)
     return int(sumChar)
 
 #start function
