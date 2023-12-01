@@ -16,4 +16,5 @@ string_list = ["abc123def456", "xyz789", "abc1xyz2"]
 
 # Extract first and last digits from each string
 for string in string_list:
-    first_digit, last_digit = extract_fir
+    first_digit, last_digit = extract_first_last_digits(string)
+    print(f"String: {string}, First Digit: {first_digit}, Last Digit: {last_digit}")
