@@ -12,11 +12,10 @@ def clear_console():
 
 def process_row(row):
     #the play
-    the_colors = {
-        'blue': 0,
-        'red': 0,
-        'green' : 0
-    }
+    playBlue = 14
+    playRed = 12
+    playGreen = 13
+    noOfCubes = 0
     #collect max
     maxBlue = 0
     maxRed = 0
@@ -24,19 +23,35 @@ def process_row(row):
     #process row
     game, allSets = row.split(':')
     sets = allSets.split(';')
+    x, gameId = game.split()
 
     #procss all sets
     for cubes in sets:
-        colors = cubes.split(',')
-        for play in colors:
-            play = play.strip()
-            numb, color = play.split()
-            #update the dict for this color
-            the_colors[color] += int(numb) 
+        #counters
+        noBlue = 0
+        noRed = 0
+        noGreen = 0
+        i = 0
+        while i < len(cubes):
+            if cubes[i].isdigit():
+                if cubes[i+1].isdigit():
+                    noOfCubes = int(cubes[i] + cubes[i+1])
+                    i += 1
+                else:
+                    noOfCubes = int(cubes[i])
 
-        if the_colors['blue'] > maxBlue: maxBlue = the_colors['blue']
-        if the_colors['red'] > maxRed: maxRed = the_colors['red']
-        if the_colors['green'] > maxGreen: maxGreen = the_colors['green']
+                if cubes[i+2] == 'b': noBlue += noOfCubes
+                if cubes[i+2] == 'r': noRed += noOfCubes
+                if cubes[i+2] == 'g': noGreen += noOfCubes
+            i += 1
+            if noBlue > maxBlue: maxBlue = noBlue
+            if noRed > maxRed: maxRed = noRed
+            if noGreen > maxGreen: maxGreen = noGreen
+
+        if playBlue >= maxBlue and playRed >= maxRed and playGreen >= maxGreen: 
+            gamePossible = True
+        else:
+            gamePossible = False
         
     # The power of a set of cubes is equal to the numbers of 
     # red, green, and blue cubes multiplied together
