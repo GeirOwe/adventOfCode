@@ -1,7 +1,6 @@
 # Day4 2023 for Advent of Code
 # source: https://adventofcode.com/
 import os
-import numpy as np
 
 #clear the console and start the programme
 def clear_console():
@@ -22,32 +21,51 @@ def process_card(row):
 #start function
 def process_data(theData):
     card = 1
-    total_cards = []
-    valueX = 0
+    card_dict = {}
+    #process each row
     for row in theData:
+        #split row into the different numbers
         winning_numbers, my_numbers = process_card(row)
         # returns common elements in the two lists
         common_elements = list(set(winning_numbers).intersection(my_numbers))
+        #add card to the dict, either zero or increment of one
+        if card in card_dict:
+            valKey = card_dict[card]
+        else:
+            valKey = 0
+        #add one to this card
+        card_dict[card] = valKey + 1
+        
         #you win copies of the scratchcards below the winning card equal to the number of matches
-        # how many in total
-        total_cards.append(card)
-        valueX += 1
+        #check if this card has a value, if not zero
+        repeat = card_dict[card]
         k = 0
-        while k < total_cards.count(card):
+        #repeat for copy
+        while k < repeat:
             j = 0
+            #add a card for each matching / winning number
             while j < len(common_elements):
                 #Card 1 has four matching numbers, so you win one copy each of the next four cards: cards 2, 3, 4, and 5.
                 j += 1
-                total_cards.append(card+j)
-                valueX += 1
+                #check if this card has a value, if not zero
+                if (card+j) in card_dict:
+                    valKey = card_dict[card+j]
+                else:
+                    valKey = 0
+                #add one to this card
+                card_dict[card+j] = valKey + 1
+            
+            #next copy
             k += 1
+            
         #next row / card
         card += 1
-        total_cards = sorted(total_cards)
-        #manage the length of total list
-        total_cards = [x for x in total_cards if x > (card-1)]
-          
-    return valueX
+    
+    #summarize total; sum value (v) for all card / keys (k)
+    sumX = 0
+    for k, v in card_dict.items():
+        sumX += v
+    return sumX
 #end function
 
 def get_the_data():
