@@ -45,6 +45,7 @@ def process_data(theData):
             j = 0
             #add a card for each matching / winning number
             while j < len(common_elements):
+                #Card 1 has four matching numbers, so you win one copy each of the next four cards: cards 2, 3, 4, and 5.
                 j += 1
                 #check if this card has a value, if not zero
                 if (card+j) in card_dict:
