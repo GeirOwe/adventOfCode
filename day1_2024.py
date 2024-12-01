@@ -22,6 +22,17 @@ def calc_distance(first_list, second_list):
 
     return totalDiff
 
+#a more pythonic way for  the calc distance routine
+def calc_distance_pythonic(first_list, second_list):
+    x = zip(first_list, second_list)
+    return sum(abs(a - b) for a, b in zip(first_list, second_list))
+# This improved version has several Pythonic features:
+# It uses zip() to pair up corresponding elements from both lists. It employs a generator 
+# expression (similar to a list comprehension) to calculate the absolute differences.
+# zip creates an iterable where each element is a tuple containing a and b.
+# The for loop unpacks each tuple into the two variables.
+# This version is more concise, easier to read, and generally more efficient. 
+
 def process_the_data(theData):
     #set initial position for the dataset
     first_list = []
@@ -41,13 +52,15 @@ def process_the_data(theData):
     print('lengden av andre liste er: ', len(second_list))
     #calculate the the total distance between your lists
     totalDistance = calc_distance(first_list, second_list)
+    #calculate the the total distance between your lists in a more pythonic way
+    #totalDistance = calc_distance_pythonic(first_list, second_list)
     return totalDistance
 
 def get_the_data():
     #read the test puzzle input 
-    #theData = open('day1_2024_test_puzzle_input.txt', 'r')
+    theData = open('day1_2024_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    theData = open('day1_2024_puzzle_input.txt', 'r')
+    #theData = open('day1_2024_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
