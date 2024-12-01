@@ -45,22 +45,20 @@ def process_the_data(theData):
         second = int(split[1].strip())
         second_list.append(second)
 
-    #sort both list with the smallest numbers first
+    # sort both list with the smallest numbers first and
     first_list.sort()
     second_list.sort()
-    print('lengden av første liste er: ', len(first_list))
-    print('lengden av andre liste er: ', len(second_list))
-    #calculate the the total distance between your lists
+    # calculate the the total distance between your lists
     totalDistance = calc_distance(first_list, second_list)
-    #calculate the the total distance between your lists in a more pythonic way
+    # calculate the the total distance between your lists in a more pythonic way
     #totalDistance = calc_distance_pythonic(first_list, second_list)
     return totalDistance
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day1_2024_test_puzzle_input.txt', 'r')
+    #theData = open('day1_2024_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day1_2024_puzzle_input.txt', 'r')
+    theData = open('day1_2024_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
