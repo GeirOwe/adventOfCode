@@ -73,8 +73,8 @@ def process_codes(theData):
 
 def get_the_data():
     #read the puzzle input like this if a list without separation chars
-    #theData = open('day22023_test_puzzle_input.txt', 'r')
-    theData = open('day22023_puzzle_input.txt', 'r')
+    theData = open('day22023_test_puzzle_input.txt', 'r')
+    #theData = open('day22023_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
