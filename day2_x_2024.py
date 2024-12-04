@@ -1,4 +1,4 @@
-# Dayx - 2024 Advent of code
+# 2024 Advent of code
 # source: https://adventofcode.com/2024
 
 from operator import truediv
@@ -6,32 +6,32 @@ import os
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2024 Day 2, part 1 .... >')
+    print('< .... AoC 2024 Day 2, part 2 .... >')
     print()
     return
 
-def allIncDec(lst):
-    safe = False
-    # Check if the list is increasing
-    is_increasing = all(int(lst[i]) < int(lst[i+1]) for i in range(len(lst) - 1))
-    # Check if the list is decreasing
-    is_decreasing = all(int(lst[i]) > int(lst[i+1]) for i in range(len(lst) - 1))
-    
-    # Return True if the list is either increasing or decreasing
-    if is_increasing or is_decreasing: safe = True
+def is_safe_report(numbers):
+    def is_valid_sequence(nums):
+        # checks if a sequence is valid according to the given rules:
+        # It's either all increasing or all decreasing.
+        # Adjacent numbers differ by at least 1 and at most 3.
+        if len(nums) < 2:
+            return True
+        diff = nums[1] - nums[0]
+        # zip(nums, nums[1:]): This creates pairs of adjacent numbers in the list.
+        # calculates the absolute difference between adjacent numbers.                
+        return all(1 <= abs(b - a) <= 3 and (b - a) * diff > 0 for a, b in zip(nums, nums[1:]))
 
-    return safe
+    # Check if the original sequence is valid
+    if is_valid_sequence(numbers):
+        return True
 
-def adjacentOk(row):
-    safe = True
-    i = 0
-    while i < (len(row) -1):
-        # Any two adjacent levels differ by at least one and at most three.
-        diff = abs(int(row[i]) - int(row[i+1]))
-        if (diff == 0) or (diff > 3): safe = False
-        i += 1
-
-    return safe
+    # Try removing one number at a time: numbers[:i] + numbers[i+1:]:
+    # This creates a new list by concatenating two slices of the original list:
+    # numbers[:i]: All elements from the start up to (but not including) index i.
+    # numbers[i+1:]: All elements from index i+1 to the end.
+    # Effectively, this removes the element at index i from the list.
+    return any(is_valid_sequence(numbers[:i] + numbers[i+1:]) for i in range(len(numbers)))
 
 def process_the_data(theData):
     noOfReports = 0
@@ -41,21 +41,10 @@ def process_the_data(theData):
         #change row into a list of integers
         int_list = [int(x) for x in row_list]
 
-        noOfNumbs = len(row_list)
-        element = 0
-        while element < noOfNumbs:
-            incOrDec = allIncDec(int_list)
-            adjacent = adjacentOk(int_list)
+        #check if the report is safe
+        safe = is_safe_report(int_list)
+        if safe: noOfReports += 1
 
-            #it both conditions are true, the report is safe    
-            if incOrDec and adjacent: 
-                noOfReports += 1
-                element = 100
-            else:
-                #drop an element
-                 int_list = [int(x) for x in row_list]
-                 del int_list[element]
-                 element += 1
     return noOfReports
 
 def get_the_data():
