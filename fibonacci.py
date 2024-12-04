@@ -14,9 +14,11 @@ def clear_console():
 #start function
 def process_data(points):
     fib_seq_list = []
+    
     #generate fibonacci sequence
     fib = lambda n: n if n<= 1 else fib(n-1) + fib(n-2)
     fib_seq = (fib(i) for i in range(points))
+    
     for x in fib_seq: 
         fib_seq_list.append(x)
     return fib_seq_list

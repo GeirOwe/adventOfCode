@@ -1,14 +1,12 @@
 # Day8 - 2023 Advent of code
 
 import os
-from pickle import FALSE
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2023 Day 8, part 1 .... >')
+    print('< .... AoC 2023 Day 8, part 1b .... >')
     print()
     return
-
 
 def fetch_node(row, row_dict):
     #separate node and instructions -> AAA = (BBB, CCC)
@@ -45,6 +43,9 @@ def process_the_data(theData):
     row_dict = get_nodes(theData)
     # loop thru all instructions and look for 'zzz' node
     noOfInstruct = len(instruction)
+    #where is zzz node
+    this_i = row_dict['ZZZ']
+    print('ZZZ = ', this_i)
     i = 0
     #start with the first key as node
     node = list(row_dict.keys())[0]
@@ -68,15 +69,17 @@ def process_the_data(theData):
         i += 1
         node = nextNode
         # if at the end of instruction and not found; start over
-        if i == noOfInstruct and notFound: i = 0
+        if i == noOfInstruct and notFound: 
+            i = 0
+            #print(noOfSteps)
 
     return noOfSteps
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day82023_test_puzzle_input.txt', 'r')
+    #theData = open('day82023_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day82023_puzzle_input.txt', 'r')
+    theData = open('day82023_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:

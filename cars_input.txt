@@ -1,0 +1,4 @@
+tesla, 2023, model s, 999000, 20000
+tesla, 2023, model 3, 399000, 21000
+tesla, 2023, model x, 1099000, 22000
+tesla, 2023, model y, 499000, 23000
