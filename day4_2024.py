@@ -3,6 +3,7 @@
 
 from operator import truediv
 import os
+from collections import Counter
 
 def clear_console():
     os.system('clear')
@@ -18,6 +19,8 @@ def find_word_in_grid(grid, word):
                 return False
         return True
 
+    # This word search allows words to be horizontal, vertical, diagonal, written backwards, or even 
+    # overlapping other words.
     directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
     occurrences = []
 
@@ -25,6 +28,8 @@ def find_word_in_grid(grid, word):
         for j in range(len(grid[0])):
             if grid[i][j] == word[0]:
                 for dx, dy in directions:
+                    # If a match is found starting from a particular cell in a specific 
+                    # direction, it records the starting position.
                     if search_direction(i, j, dx, dy):
                         occurrences.append((i, j))
 
@@ -37,15 +42,10 @@ def process_the_data(theData):
         a_list = [row[i] for i in range(len(row))]
         grid.append(a_list)
 
-    # Example usage:
-    #grid = [
-    #    ['X', 'M', 'A', 'S'],
-    #    ['M', 'X', 'M', 'A'],
-    #    ['A', 'A', 'X', 'M'],
-    #    ['S', 'A', 'M', 'X']
-    #]
     word = "XMAS"
-    print(find_word_in_grid(grid, word))
+    occurences = find_word_in_grid(grid, word)
+
+    noOfReports = len(occurences)
 
     return noOfReports
 
@@ -68,7 +68,7 @@ def start_the_engine():
     #process the data and return the answer -> correct answer is: 12
     valueX = process_the_data(theData) 
     
-    print('How many reports are safe -> ', valueX,'\n') 
+    print('How many times does XMAS appear? -> ', valueX,'\n') 
     return 
 
 #let's start
