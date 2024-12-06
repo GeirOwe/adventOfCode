@@ -12,6 +12,7 @@ def clear_console():
     return
 
 def simulate_guard_patrol(grid):
+    #movements
     directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]  # Up, Right, Down, Left
     dir_index = 0
     
@@ -19,6 +20,8 @@ def simulate_guard_patrol(grid):
     guard_pos = None
     for i, row in enumerate(grid):
         for j, cell in enumerate(row):
+            # '^' represents the guard facing up. '>' represents the guard facing right
+            # 'v' represents the guard facing down. '<' represents the guard facing left
             if cell in '^>v<':
                 guard_pos = (i, j)
                 dir_index = '^>v<'.index(cell)
