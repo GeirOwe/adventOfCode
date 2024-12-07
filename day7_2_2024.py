@@ -3,7 +3,6 @@
 
 import os
 from itertools import product
-from functools import lru_cache
 
 def clear_console():
     os.system('clear')
@@ -11,35 +10,22 @@ def clear_console():
     print()
     return
 
-@lru_cache(maxsize=None)
-def can_form_equation(target, numbers):
-    if len(numbers) == 1:
-        return numbers[0] == target
-    
-    for i in range(1, len(numbers)):
-        left = numbers[:i]
-        right = numbers[i:]
-        
-        # Try addition
-        if can_form_equation(target - sum(right), left):
-            return True
-        
-        # Try multiplication
-        if target % prod(right) == 0 and can_form_equation(target // prod(right), left):
-            return True
-        
-        # Try concatenation
-        right_value = int(''.join(map(str, right)))
-        if target > right_value and can_form_equation(int(str(target)[:-len(str(right_value))]), left):
-            return True
-    
-    return False
-
-def prod(numbers):
-    result = 1
-    for n in numbers:
-        result *= n
+def evaluate_expression(numbers, operators):
+    result = numbers[0]
+    for i, op in enumerate(operators):
+        if op == '+':
+            result += numbers[i + 1]
+        elif op == '*':
+            result *= numbers[i + 1]
+        elif op == '||':
+            result = int(str(result) + str(numbers[i + 1]))
     return result
+
+def can_form_equation(test_value, numbers):
+    for ops in product(['+', '*', '||'], repeat=len(numbers) - 1):
+        if evaluate_expression(numbers, ops) == test_value:
+            return True
+    return False
 
 #read the file
 def read_equations_from_file(filename):
@@ -52,9 +38,9 @@ def read_equations_from_file(filename):
             equations.append((test_value, numbers))
     return equations
 
-def process_the_data(theData):
-    equations = read_equations_from_file('day7_2024_test_puzzle_input.txt')
-    #equations = read_equations_from_file('day7_2024_puzzle_input.txt.txt')
+def process_the_data():
+    #equations = read_equations_from_file('day7_2024_test_puzzle_input.txt')
+    equations = read_equations_from_file('day7_2024_puzzle_input.txt')
     total_calibration_result = 0
 
     for test_value, numbers in equations:
@@ -63,24 +49,10 @@ def process_the_data(theData):
             
     return total_calibration_result
 
-def get_the_data():
-    #read the test puzzle input 
-    theData = open('day7_2024_test_puzzle_input.txt', 'r')
-    #read the puzzle input 
-    #theData = open('day7_2024_puzzle_input.txt', 'r')
-    #move data into a list - read a line and remove lineshift
-    data_list = []
-    for element in theData:
-        elementTrimmed = element.strip()
-        data_list.append(elementTrimmed)
-    return data_list
-
 def start_the_engine():
-    #get the data and read them into a list
-    theData = get_the_data()
-    
-    #process the data and return the answer -> correct answer is: 12
-    valueX = process_the_data(theData) 
+  
+    #process the data and return the answer
+    valueX = process_the_data()
     
     print('what is their total calibration result -> ', valueX,'\n') 
     return 
