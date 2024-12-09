@@ -47,29 +47,27 @@ def expand_disk(map):
 def move_blocks(disk):
     pos = 0
     new_disk = list(disk)
-    reverse_pos = len(disk) - 1
+    reverse_pos = len(disk)
     
     for item in reversed(disk):
+        #reduce reverse po
+        reverse_pos -= 1
+        #done?
+        if pos == reverse_pos: 
+            break  
         #if item is a digit, move to the first free '.' space
         if item.isdigit():
             still_search = True
-            # Check if all elements in the latter part are dots
-            if pos == 196182: 
-                print('break')
-            if pos >= reverse_pos: 
-                still_search = False                
+                          
             # look for next avail free space
             while pos < len(disk) and still_search:
                 if new_disk[pos] == '.':
                     new_disk[pos] = item
                     new_disk[reverse_pos] = '.'
                     still_search = False
-                    pos += 1
-                else:
-                    pos += 1
-        
-        #reduce reverse po
-        reverse_pos -= 1
+                
+                pos += 1
+                
     return new_disk
 
 def calc_checksum(disk):
@@ -101,9 +99,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day9_2024_test_puzzle_input.txt', 'r')
+    #theData = open('day9_2024_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day9_2024_puzzle_input.txt', 'r')
+    theData = open('day9_2024_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:

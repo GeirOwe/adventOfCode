@@ -45,27 +45,35 @@ def expand_disk(map):
 
 #move file blocks one at a time from the end of the disk to the leftmost free space
 def move_blocks(disk):
-    disk_list = list(disk)  # Convert the string to a list for easy manipulation
-    more_to_do = True
+    pos = 0
+    new_disk = list(disk)
+    reverse_pos = len(disk) - 1  # Start from the last index
 
-    while '.' in disk_list and more_to_do:
-        # Find the rightmost number
-        rightmost_index = len(disk_list) - 1
-        while rightmost_index >= 0 and not disk_list[rightmost_index].isdigit():
-            rightmost_index -= 1
+    while pos < reverse_pos:
+        # Find the rightmost digit
+        while reverse_pos >= 0 and not new_disk[reverse_pos].isdigit():
+            reverse_pos -= 1
+
+        # If no more digits, break
+        if reverse_pos < 0:
+            break
 
         # Find the leftmost dot
-        leftmost_dot_index = disk_list.index('.')
+        while pos < len(new_disk) and new_disk[pos] != '.':
+            pos += 1
 
-        # Move the number to the leftmost dot
-        if leftmost_dot_index > rightmost_index: 
-            more_to_do = False
-        else:
-            disk_list[leftmost_dot_index] = disk_list[rightmost_index]
-            disk_list[rightmost_index] = '.'
+        # If no more dots, break
+        if pos >= len(new_disk):
+            break
 
+        # Swap the digit with the dot
+        new_disk[pos], new_disk[reverse_pos] = new_disk[reverse_pos], '.'
+        
+        # Move position pointers
+        pos += 1
+        reverse_pos -= 1
 
-    return disk_list
+    return ''.join(new_disk)
 
 def calc_checksum(disk):
     checksum = 0
