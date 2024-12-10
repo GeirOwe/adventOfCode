@@ -53,8 +53,8 @@ def find_hiking_trails(map_grid):
     for i in range(rows):
         for j in range(cols):
             if map_grid[i][j] == 0:
-                reachable_nines = dfs(i, j, 0)
-                trailhead_scores[(i, j)] = len(reachable_nines)
+                trails = dfs(i, j, 0)
+                trailhead_scores[(i, j)] = len(trails)
     
     return trailhead_scores
 
