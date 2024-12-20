@@ -44,15 +44,16 @@ def process_the_data(theData):
     return fully
 def get_the_data():
     #read the test puzzle input 
-    #theData = open('day42022_test_puzzle_input.txt', 'r')
+    theData = open('day42022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    theData = open('day42022_puzzle_input.txt', 'r')
+    #theData = open('day42022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
         elementTrimmed = element.strip()
         data_list.append(elementTrimmed)
     return data_list
+
 def start_the_engine():
     #get the data and read them into a list
     theData = get_the_data()
@@ -62,14 +63,6 @@ def start_the_engine():
     
     print('In how many assignment pairs does one range fully contain the other -> ', valueX,'\n') 
     return
-    #get the data and read them into a list
-    theData = get_the_data()
-    
-    #process the data and return the answer -> correct answer is: 12
-    valueX = process_the_data(theData) 
-    
-    print('what would your total score be according to your strategy guide  -> ', valueX,'\n') 
-    return 
 
 #let's start
 if __name__ == '__main__':

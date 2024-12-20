@@ -21,10 +21,20 @@ def process_codes(theData):
 #end function
 
 def get_the_data():
-    #read the test puzzle input 
+    #read the test puzzle input like this if separated by comma
     intcodes_f = open('dayx_test_puzzle_input.txt', 'r')
     #the codes are separated by comma - transfer them to a list
     theData = intcodes_f.read().split(',')
+
+    #read the puzzle input like this if a list without separation chars
+    # theData = open('dayx_test_puzzle_input.txt', 'r')
+    #move data into a list - read a line and remove lineshift
+    #data_list = []
+    #for element in theData:
+    #    elementTrimmed = element.strip()
+    #    data_list.append(elementTrimmed)
+    #return data_list
+
     return theData
 
 #start function
@@ -35,8 +45,8 @@ def start_the_challenge():
     #process the codes and return the answer
     valueX = process_codes(theData) 
     
-    print('forventet resultat er ...  6730673 ...') 
-    print('What value is left at position 0 after the program halts? - ', valueX)
+    print('\nexpect -> 6730673') 
+    print('result ->', valueX, '\n')
 
     return 
 #end function

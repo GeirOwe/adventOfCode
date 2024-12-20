@@ -30,6 +30,7 @@ def grid_borders(theData):
             j += 2
     #set as a constant in rebus
     minY = 0
+    print(minX, '', minY, ' ', maxX, ' ', maxY)
     return minX, minY, maxX, maxY
 
 def define_grid(minX, minY, maxX, maxY):
@@ -110,7 +111,6 @@ def pour_sand(grid, sand, units_of_sand, more_sand, at_rest):
     if grid[y][x] in empty and last_row == False:
         # continue to drop
         sand[1] = y
-        #units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
     else:
         # instead move diagonally one step down and to the left
         # If that tile is blocked, the unit of sand attempts to instead move 
@@ -121,7 +121,6 @@ def pour_sand(grid, sand, units_of_sand, more_sand, at_rest):
                 #continue here
                 sand[0] = x
                 sand[1] = y
-                #units_of_sand, more_sand = pour_sand(grid, sand, units_of_sand, more_sand)
             else: 
                 at_rest = True
                 more_sand = False
@@ -202,14 +201,18 @@ def process_data(theData):
         at_rest = False
         while at_rest != True:
             grid, sand, units_of_sand, more_sand, at_rest = pour_sand(grid, sand, units_of_sand, more_sand, at_rest)
+            
+            if  units_of_sand == 779: 
+                print(units_of_sand)
+                #more_sand = False
     return units_of_sand
 #end function
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day142022_test_puzzle_input.txt', 'r')
+    #theData = open('day142022_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day142022_puzzle_input.txt', 'r')
+    theData = open('day142022_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
