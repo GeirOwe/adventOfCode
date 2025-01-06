@@ -1,11 +1,11 @@
-# Dayx - 2024 Advent of code
+# 2024 Advent of code
 # source: https://adventofcode.com/2024
 
 import os
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2024 Day X, part 1 .... >')
+    print('< .... AoC 2024 Day 1, part 1 .... >')
     print()
     return
 
@@ -56,9 +56,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input 
-    #theData = open('day1_2024_test_puzzle_input.txt', 'r')
+    theData = open('day1_2024_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    theData = open('day1_2024_puzzle_input.txt', 'r')
+    #theData = open('day1_2024_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
