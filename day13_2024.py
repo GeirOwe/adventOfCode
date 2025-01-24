@@ -58,9 +58,9 @@ def process_the_data(theData):
 
 def get_the_data():
     #read the test puzzle input
-    #theData = parse_puzzle_input('day13_2024_test_puzzle_input.txt')
+    theData = parse_puzzle_input('day13_2024_test_puzzle_input.txt')
     #read the puzzle input 
-    theData = parse_puzzle_input('day13_2024_puzzle_input.txt')
+    #theData = parse_puzzle_input('day13_2024_puzzle_input.txt')
     return theData
 
 def start_the_engine():

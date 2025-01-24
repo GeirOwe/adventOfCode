@@ -1,11 +1,11 @@
-# Dayx - 2024 Advent of code
+# 2024 Advent of code
 # source: https://adventofcode.com/2024
 
 import os
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2024 Day X, part 1 .... >')
+    print('< .... AoC 2024 Day 1, part 1 .... >')
     print()
     return
 
