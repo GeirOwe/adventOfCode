@@ -66,23 +66,6 @@ def get_the_data():
         data_list.append(elementTrimmed)
     return data_list
 
-def generate_fibonacci(n):
-    """
-    Generate Fibonacci numbers up to the nth number.
-    """
-    # Define a lambda function to calculate Fibonacci numbers
-    # The lambda function uses recursion to calculate the nth Fibonacci number
-    fib = lambda n: n if n <= 1 else fib(n-1) + fib(n-2)
-    
-    # Create a generator to generate Fibonacci numbers from 0 to n
-    fibonacci_generator = (fib(i) for i in range(n + 1))
-    
-    print('Fibonacci numbers:')
-    # Iterate through the generator and print each Fibonacci number
-    for i in fibonacci_generator:
-        print(i, end=' ')
-    print('\n')
-
 def start_the_engine():
     #get the data and read them into a list
     theData = get_the_data()
@@ -91,9 +74,6 @@ def start_the_engine():
     valueX = process_the_data(theData) 
     
     print('the total distance between your lists  -> ', valueX,'\n') 
-
-    # Generate and print Fibonacci numbers up to 10
-    generate_fibonacci(10)
 
     return 
 
