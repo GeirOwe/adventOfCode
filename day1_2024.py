@@ -24,7 +24,15 @@ def calc_distance(first_list, second_list):
 
 #a more pythonic way for  the calc distance routine
 def calc_distance_pythonic(first_list, second_list):
-    x = zip(first_list, second_list)
+    """Calculate distance between two lists using Pythonic approach.
+
+    Args:
+        first_list (list): First list of integers
+        second_list (list): Second list of integers
+
+    Returns:
+        int: Sum of absolute differences between corresponding elements
+    """
     return sum(abs(a - b) for a, b in zip(first_list, second_list))
 # This improved version has several Pythonic features:
 # It uses zip() to pair up corresponding elements from both lists. It employs a generator 
@@ -33,26 +41,37 @@ def calc_distance_pythonic(first_list, second_list):
 # The for loop unpacks each tuple into the two variables.
 # This version is more concise, easier to read, and generally more efficient. 
 
-def process_the_data(theData):
-    #set initial position for the dataset
+def process_the_data(the_data):
+    """Process input data and calculate total distance between two lists.
+
+    Args:
+        the_data (list): List of strings containing space-separated numbers
+
+    Returns:
+        int: Total distance between sorted lists
+    """
+    # Set initial position for the dataset
     first_list = []
     second_list = []
-    # loop thru the input data and split into two lists
-    for theRow in theData:
-        split = theRow.split('  ')
+
+    # Loop through the input data and split into two lists
+    for row in the_data:
+        split = row.split('  ')
         first = int(split[0].strip())
         first_list.append(first)
         second = int(split[1].strip())
         second_list.append(second)
 
-    # sort both list with the smallest numbers first and
+    # Sort both lists with the smallest numbers first
     first_list.sort()
     second_list.sort()
-    # calculate the the total distance between your lists
-    totalDistance = calc_distance(first_list, second_list)
-    # calculate the the total distance between your lists in a more pythonic way
-    #totalDistance = calc_distance_pythonic(first_list, second_list)
-    return totalDistance
+
+    # Calculate the total distance between lists
+    total_distance = calc_distance(first_list, second_list)
+    # Alternative: using pythonic way
+    # total_distance = calc_distance_pythonic(first_list, second_list)
+
+    return total_distance
 
 def get_the_data():
     #read the test puzzle input 
