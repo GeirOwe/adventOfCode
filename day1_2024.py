@@ -75,9 +75,9 @@ def process_the_data(the_data):
 
 def get_the_data():
     #read the test puzzle input 
-    theData = open('day1_2024_test_puzzle_input.txt', 'r')
+    #theData = open('day1_2024_test_puzzle_input.txt', 'r')
     #read the puzzle input 
-    #theData = open('day1_2024_puzzle_input.txt', 'r')
+    theData = open('day1_2024_puzzle_input.txt', 'r')
     #move data into a list - read a line and remove lineshift
     data_list = []
     for element in theData:
