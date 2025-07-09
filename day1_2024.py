@@ -4,7 +4,7 @@
 import os
 
 def clear_console():
-    os.system('clear')
+    os.system('cls')
     print('< .... AoC 2024 Day 1, part 1 .... >')
     print()
     return
