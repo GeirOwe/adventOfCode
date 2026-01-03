@@ -1,6 +1,12 @@
 # Day4 2023 for Advent of Code
 # source: https://adventofcode.com/
+<<<<<<< HEAD
+
 import os
+import numpy as np
+=======
+import os
+>>>>>>> 22c3587493b01a9885cb5aa25e108ffa67e09664
 
 #clear the console and start the programme
 def clear_console():
@@ -21,6 +27,29 @@ def process_card(row):
 #start function
 def process_data(theData):
     card = 1
+<<<<<<< HEAD
+    total_cards = []
+    for row in theData:
+        winning_numbers, my_numbers = process_card(row)
+        # returns common elements in the two lists
+        common_elements = list(set(winning_numbers).intersection(my_numbers))
+        #you win copies of the scratchcards below the winning card equal to the number of matches
+
+        # how many in total
+        total_cards.append(card)
+        k = 0
+        while k < total_cards.count(card):
+            j = 0
+            while j < len(common_elements):
+                j += 1
+                total_cards.append(card+j)    #Card 1 has four matching numbers, so you win one copy each of the next four cards: cards 2, 3, 4, and 5.
+            k += 1
+        #next row / card
+        card += 1
+        total_cards = sorted(total_cards)
+
+    return len(total_cards)
+=======
     card_dict = {}
     #process each row
     for row in theData:
@@ -66,6 +95,7 @@ def process_data(theData):
     for k, v in card_dict.items():
         sumX += v
     return sumX
+>>>>>>> 22c3587493b01a9885cb5aa25e108ffa67e09664
 #end function
 
 def get_the_data():
@@ -84,10 +114,24 @@ def get_the_data():
 def start_the_challenge():
     #get the data and read the into  list
     theData = get_the_data()
+<<<<<<< HEAD
+
+=======
+>>>>>>> 22c3587493b01a9885cb5aa25e108ffa67e09664
     #process the codes and return the answer
     valueX = process_data(theData) 
     
     print('how many total scratchcards do you end up with -> ', valueX, '\n')
+<<<<<<< HEAD
+
+    return 
+#end function
+
+#let's start
+if __name__ == '__main__':
+    clear_console()
+    start_the_challenge()
+=======
     return 
 
 #end function
@@ -95,3 +139,4 @@ def start_the_challenge():
 if __name__ == '__main__':
     clear_console()
     start_the_challenge()
+>>>>>>> 22c3587493b01a9885cb5aa25e108ffa67e09664

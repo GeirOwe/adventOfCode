@@ -1,11 +1,11 @@
-# Dayx - 2023 Advent of code
-# source: https://adventofcode.com/2023
+# Dayx - 2024 Advent of code
+# source: https://adventofcode.com/2024
 
 import os
 
 def clear_console():
     os.system('clear')
-    print('< .... AoC 2023 Day X, part 1 .... >')
+    print('< .... AoC 2024 Day X, part 1 .... >')
     print()
     return
 
@@ -13,12 +13,11 @@ def process_the_data(theData):
     #set initial position for the dataset
     totalScore = 42
     
-    # loop thru the list and calculate no of cals for the Elf. 
-    # Empty means no more cals for this Elf.
+    # loop thru the list
     for theRow in theData:
         split = theRow.split(' ')
-        elfPlay = split[0].strip()
-        myPlay = split[1].strip()
+        first = split[0].strip()
+        second = split[1].strip()
 
     return totalScore
 
